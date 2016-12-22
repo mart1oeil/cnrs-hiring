@@ -10,10 +10,11 @@ from operator import itemgetter, attrgetter, methodcaller
 from datetime import date
 from datetime import datetime
 from datetime import date
+import json
 class arrete:
     ''''''
     def __init__(self,url):
-        self.year=datetime(1970,1,1)
+        self.year=1970
         self.classe=""
         self.url=url
         self.postes={1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,21:0,22:0,23:0,24:0,25:0,26:0,27:0,28:0,29:0,30:0,31:0,32:0,33:0,34:0,35:0,36:0,37:0,38:0,39:0,40:0,41:0,42:0,43:0,44:0,45:0,46:0,47:0,48:0,51:0,52:0,53:0,54:0}
@@ -35,11 +36,11 @@ class arrete:
         soup = BeautifulSoup(r,'lxml')
         body=soup.find('body')
         title=soup.find('title')
-        expressionTitle=r".*Arrêté du.* (?P<datePubli>[0-9]+) autorisant.*recrutement de chargés de recherche de (?P<classe>[0-9]+).*"
+        expressionTitle=r".*autorisant au titre de l'année (?P<datePubli>[0-9]+) .*recrutement de chargés de recherche de (?P<classe>[0-9]+).*"
         p = re.compile(expressionTitle)    
         titleData=re.search(p, str(title))
         if titleData is not None:
-            self.year=datetime(int(titleData.group('datePubli')),1,1)
+            self.year=int(titleData.group('datePubli'))
             self.classe=titleData.group('classe')
         #Récupération du document coupé selon les sections
         sections=re.split("Section ",str(body),flags=re.S)
@@ -87,7 +88,7 @@ class arrete:
 
 
 
-#{1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0,18:0,19:0,20:0,21:0,22:0,23:0,24:0,25:0,26:0,27:0,28:0,29:0,30:0,31:0,32:0,33:0,34:0,35:0,36:0,37:0,38:0,39:0,40:0,41:0,42:0,43:0,44:0,45:0,46:0,47:0,48:0,51:0,52:0,53:0,54:0}    
+
 a=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480025&dateTexte=&categorieLien=id")
 b=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480019&dateTexte=&categorieLien=id")
 c=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490422&dateTexte=&categorieLien=id")
@@ -120,38 +121,38 @@ for arret in arretes:
     arret.postescnrs()  
 #On trie par année
 arretesSorted=sorted(arretes, key=attrgetter('year')) 
-
-
-xdata=[]
-ysdata={}
-    
+jsontab=[]
+jsonTabClasse1=[]
+jsonTabClasse2=[]
 sections=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,51,52,53,54]
+sectionsTitle=["Interactions, particules, noyaux, du laboratoire au cosmos","Théories physiques : méthodes, modèles et applications","Matière condensée : structures et propriétés électroniques","Atomes et molécules, optique et lasers, plasmas chauds","Matière condensée : organisation et dynamique","Sciences de l'information : fondements de l'informatique, calculs, algorithmes, représentations, exploitations","Sciences de l'information : signaux, images, langues, automatique, robotique, interactions, systèmes intégrés matériel-logiciel","Micro- et nanotechnologies, micro- et nanosystèmes, photonique, électronique, électromagnétisme, énergie électrique","Mécanique des solides. Matériaux et structures. Biomécanique. Acoustique","Milieux fluides et réactifs : transports, transferts, procédés de transformation","Systèmes et matériaux supra et macromoléculaires : élaboration, propriétés, fonctions","Architectures moléculaires : synthèses, mécanismes et propriétés","Chimie physique, théorique et analytique","Chimie de coordination, catalyse, interfaces et procédés","Chimie des matériaux, nanomatériaux et procédés","Chimie et vivant","Système solaire et univers lointain","Terre et planètes telluriques : structure, histoire, modèles","Système terre : enveloppes superficielles","Biologie moléculaire et structurale, biochimie","Organisation, expression, évolution des génomes. Bioinformatique et biologie des systèmes","Biologie cellulaire, développement, évolution-développement","Biologie végétale intégrative","Physiologie, vieillissement, tumorigenèse","Neurobiologie moléculaire et cellulaire, neurophysiologie","Cerveau, cognition, comportement","Relations hôte-pathogène, immunologie, inflammation","Pharmacologie-ingénierie et technologies pour la santé-imagerie biomédicale","Biodiversité, évolution et adaptations biologiques : des macromolécules aux communautés","Surface continentale et interfaces","Hommes et milieux : évolution, interactions","Mondes anciens et médiévaux","Mondes modernes et contemporains","Sciences du langage","Sciences philosophiques et philologiques, sciences de l'art","Sociologie et sciences du droit","Economie et gestion","Anthropologie et étude comparative des sociétés contemporaines","Espaces, territoires et sociétés","Politique, Pouvoir, Organisation","Mathématiques et interactions des mathématiques","Sciences de la communication","Modélisation des systèmes biologiques, bioinformatique","Cognition, langage,traitement de l'information, systèmes naturels et artificiels","Dynamique des systèmes environnementaux,développement durable, santé et société","Risques environnementaux et société","astroparticules","sciences de la communication","Modélisation et analyse des données et des systèmes biologiques : approches informatiques, mathématiques et physiques","Environnements sociétés : du fondamental à l'opérationnel","Méthodes, pratiques et communications des sciences et des techniques","Méthodes expérimentales, concepts et instrumentation en sciences de la matière et en ingénierie pour le vivant"]
+i=0
 for section in sections:
-    ysdata[section]=[]
-    
-for arret in arretesSorted:
-    if arret.classe=="1":       
-        
-        xdata.append(time.mktime(arret.year.timetuple())*1000)
-        for section in arret.postes:
-            if section is not "total":
-                ysdata[section].append(arret.postes[section])     
-    else:
-        for section in arret.postes:
-            if section is not "total":
-                #ysdata[section].append(arret.postes[section])     
-                ysdata[section][-1]=ysdata[section][-1]+arret.postes[section]
-            
+    jsonSec={"key": "section "+str(section),"name": sectionsTitle[i],"values":[]}
+    jsonSecClasse1={"key": "section "+str(section),"values":[]}
+    jsonSecClasse2={"key": "section "+str(section),"values":[]}
+    for arret in arretesSorted:
+        if arret.classe=="1": 
+            jsonSec["values"].append([arret.year,arret.postes[section]])
+            jsonSecClasse1["values"].append([arret.year,arret.postes[section]])
+        else:           
+            classe1=jsonSec["values"][-1][-1]
+            classe2=classe1+arret.postes[section]
+            jsonSec["values"][-1]=[arret.year,classe2]
+            jsonSecClasse2["values"].append([arret.year,arret.postes[section]])
+    jsontab.append(jsonSec)
+    jsonTabClasse1.append(jsonSecClasse1)
+    jsonTabClasse2.append(jsonSecClasse2)
+    i=i+1
 
-chart = stackedAreaChart(name='stackedAreaChart', height=800, width=1024, x_is_date=True,, x_axis_format="%d %b %Y")
-#extra_serie = {"tooltip": {"y_start": "", "y_end": " ext"},"date_format":"%d %b %Y"}
-extra_serie = {"tooltip": {"y_start": "There is ", "y_end": " min"},"date_format":"%Y"}
+out_file = open("postes-CR-CNRS.json","w")
+json.dump(jsontab,out_file, indent=4)     
+out_file.close()
 
-for ydata in ysdata:
-    if ydata is not 'total' :
-        chart.add_serie(name="Section "+str(ydata), y=ysdata[ydata], x=xdata, extra=extra_serie)
-        
-chart.buildhtml()
-fo = open("cnrs-hiring.html", "w")
-fo.write(chart.htmlcontent)
-fo.close()
+out_file = open("postes-CR-CNRS-Classe1.json","w")
+json.dump(jsonTabClasse1,out_file, indent=4)     
+out_file.close()
+
+out_file = open("postes-CR-CNRS-Classe2.json","w")
+json.dump(jsonTabClasse2,out_file, indent=4)     
+out_file.close()
