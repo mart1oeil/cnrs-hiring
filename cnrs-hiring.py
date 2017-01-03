@@ -1,5 +1,4 @@
 # coding: utf-8 
-#from __future__ import unicode_literals
 from bs4 import BeautifulSoup
 import urllib
 import re
@@ -11,7 +10,8 @@ from datetime import date
 from datetime import datetime
 from datetime import date
 import json
-class arrete:
+
+class arreteCR:
     ''''''
     def __init__(self,url):
         self.year=1970
@@ -24,14 +24,7 @@ class arrete:
 
 
     def postescnrs(self):
-        #tableau avec les nouveaux postes pour l'année de l'arrêté, indicé par numéro de section ou de commission interdisciplinaire
-        #table={}
-        #ouverture de l'arrêté sur legifrance
-        
-#        <title>
-#			Arrêté du 13 novembre 2015 autorisant au titre de l'année 2016 l'ouverture de concours sur titres et travaux pour le recrutement de chargés de recherche de 1re classe du Centre national de la recherche scientifique (CNRS) | Legifrance</title>
-
-        
+        #ouverture de l'arrêté sur legifrance        
         r = urllib.request.urlopen(self.url).read()
         soup = BeautifulSoup(r,'lxml')
         body=soup.find('body')
@@ -86,52 +79,30 @@ class arrete:
         self.postes["total"]=total
         return self.postes
 
+# Liste des urls des arrêtés de création de poste de chargé de recherche au CNRS
+urlsArretesCR=["https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480025&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480019&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490422&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490420&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000029813331","https://www.legifrance.gouv.fr/eli/arrete/2014/11/28/MENZ1401228A/jo","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=BEBA6FEC29B8F77879D8D969E3C03AD9.tpdila12v_1?cidTexte=JORFTEXT000028254219&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000028253873","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000028254221&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706545&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706549&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=21FA7807711039CC01C3F0495E63C172.tpdila18v_3?cidTexte=JORFTEXT000024874335&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000024873109","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000024874337&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000023149440","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=94074D80BF1B2F67F44A9954C071179B.tpdila22v_1?cidTexte=JORFTEXT000023149444&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000023149317","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=ADF7A19107CADD7CD34A852F28C4B7DD.tpdila13v_2?cidTexte=JORFTEXT000021358052&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000021357990","https://www.legifrance.gouv.fr/eli/arrete/2009/11/10/ESRZ0900458A/jo","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857342&dateTexte=","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857344&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572706&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572708&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=74DB883A02229D7A7258060ACDB6E500.tpdila13v_3?cidTexte=JORFTEXT000000241564&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000790865","https://www.legifrance.gouv.fr/eli/arrete/2005/11/22/RECZ0500201A/jo/texte","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000607247&categorieLien=id"]
 
 
-
-a=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480025&dateTexte=&categorieLien=id")
-b=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480019&dateTexte=&categorieLien=id")
-c=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490422&dateTexte=&categorieLien=id")
-d=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490420&dateTexte=&categorieLien=id")
-e=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000029813331")
-f=arrete("https://www.legifrance.gouv.fr/eli/arrete/2014/11/28/MENZ1401228A/jo")
-g=arrete("https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=BEBA6FEC29B8F77879D8D969E3C03AD9.tpdila12v_1?cidTexte=JORFTEXT000028254219&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000028253873")
-h=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000028254221&dateTexte=&categorieLien=id")
-i=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706545&dateTexte=&categorieLien=id")
-j=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706549&dateTexte=&categorieLien=id")
-k=arrete("https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=21FA7807711039CC01C3F0495E63C172.tpdila18v_3?cidTexte=JORFTEXT000024874335&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000024873109")
-l=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000024874337&dateTexte=&categorieLien=id")
-m=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000023149440")
-n=arrete("https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=94074D80BF1B2F67F44A9954C071179B.tpdila22v_1?cidTexte=JORFTEXT000023149444&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000023149317")
-o=arrete("https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=ADF7A19107CADD7CD34A852F28C4B7DD.tpdila13v_2?cidTexte=JORFTEXT000021358052&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000021357990")
-p=arrete("https://www.legifrance.gouv.fr/eli/arrete/2009/11/10/ESRZ0900458A/jo")
-q=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857342&dateTexte=")
-r=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857344&categorieLien=id")
-s=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572706&categorieLien=id")
-t=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572708&categorieLien=id")
-u=arrete("https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=74DB883A02229D7A7258060ACDB6E500.tpdila13v_3?cidTexte=JORFTEXT000000241564&categorieLien=id")
-v=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000790865")
-w=arrete("https://www.legifrance.gouv.fr/eli/arrete/2005/11/22/RECZ0500201A/jo/texte")
-x=arrete("https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000607247&categorieLien=id")
-
-    
-arretes=[a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x]
+arretesCR=[]
 #Pour chaque arrete on récupère les infos et on stocke
-for arret in arretes:
+for urlArret in urlsArretesCR:
+    arret=arreteCR(urlArret)
     arret.postescnrs()  
+    arretesCR.append(arret)
 #On trie par année
-arretesSorted=sorted(arretes, key=attrgetter('year')) 
+arretesCRSorted=sorted(arretesCR, key=attrgetter('year')) 
 jsontab=[]
 jsonTabClasse1=[]
 jsonTabClasse2=[]
 sections=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,51,52,53,54]
 sectionsTitle=["Interactions, particules, noyaux, du laboratoire au cosmos","Théories physiques : méthodes, modèles et applications","Matière condensée : structures et propriétés électroniques","Atomes et molécules, optique et lasers, plasmas chauds","Matière condensée : organisation et dynamique","Sciences de l'information : fondements de l'informatique, calculs, algorithmes, représentations, exploitations","Sciences de l'information : signaux, images, langues, automatique, robotique, interactions, systèmes intégrés matériel-logiciel","Micro- et nanotechnologies, micro- et nanosystèmes, photonique, électronique, électromagnétisme, énergie électrique","Mécanique des solides. Matériaux et structures. Biomécanique. Acoustique","Milieux fluides et réactifs : transports, transferts, procédés de transformation","Systèmes et matériaux supra et macromoléculaires : élaboration, propriétés, fonctions","Architectures moléculaires : synthèses, mécanismes et propriétés","Chimie physique, théorique et analytique","Chimie de coordination, catalyse, interfaces et procédés","Chimie des matériaux, nanomatériaux et procédés","Chimie et vivant","Système solaire et univers lointain","Terre et planètes telluriques : structure, histoire, modèles","Système terre : enveloppes superficielles","Biologie moléculaire et structurale, biochimie","Organisation, expression, évolution des génomes. Bioinformatique et biologie des systèmes","Biologie cellulaire, développement, évolution-développement","Biologie végétale intégrative","Physiologie, vieillissement, tumorigenèse","Neurobiologie moléculaire et cellulaire, neurophysiologie","Cerveau, cognition, comportement","Relations hôte-pathogène, immunologie, inflammation","Pharmacologie-ingénierie et technologies pour la santé-imagerie biomédicale","Biodiversité, évolution et adaptations biologiques : des macromolécules aux communautés","Surface continentale et interfaces","Hommes et milieux : évolution, interactions","Mondes anciens et médiévaux","Mondes modernes et contemporains","Sciences du langage","Sciences philosophiques et philologiques, sciences de l'art","Sociologie et sciences du droit","Economie et gestion","Anthropologie et étude comparative des sociétés contemporaines","Espaces, territoires et sociétés","Politique, Pouvoir, Organisation","Mathématiques et interactions des mathématiques","Sciences de la communication","Modélisation des systèmes biologiques, bioinformatique","Cognition, langage,traitement de l'information, systèmes naturels et artificiels","Dynamique des systèmes environnementaux,développement durable, santé et société","Risques environnementaux et société","astroparticules","sciences de la communication","Modélisation et analyse des données et des systèmes biologiques : approches informatiques, mathématiques et physiques","Environnements sociétés : du fondamental à l'opérationnel","Méthodes, pratiques et communications des sciences et des techniques","Méthodes expérimentales, concepts et instrumentation en sciences de la matière et en ingénierie pour le vivant"]
 i=0
+#Création de l'arborescence des json
 for section in sections:
     jsonSec={"key": "section "+str(section),"name": sectionsTitle[i],"values":[]}
-    jsonSecClasse1={"key": "section "+str(section),"values":[]}
-    jsonSecClasse2={"key": "section "+str(section),"values":[]}
-    for arret in arretesSorted:
+    jsonSecClasse1={"key": "section "+str(section),"name": sectionsTitle[i],"values":[]}
+    jsonSecClasse2={"key": "section "+str(section),"name": sectionsTitle[i],"values":[]}
+    for arret in arretesCRSorted:
         if arret.classe=="1": 
             jsonSec["values"].append([arret.year,arret.postes[section]])
             jsonSecClasse1["values"].append([arret.year,arret.postes[section]])
