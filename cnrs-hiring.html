@@ -10,10 +10,12 @@
 
 <body>
     
-<div id='chart-total' style='width:70%'>
+<div id='chart-total'>
     <h2>Évolution de la création des postes de CR aux CNRS</h2>
     <svg style='height:900px' />
 </div>
+
+    
 <script  type='text/javascript'> 
 d3.json('postes-CR-CNRS.json', function(data) {
   nv.addGraph(function() {
@@ -27,7 +29,7 @@ d3.json('postes-CR-CNRS.json', function(data) {
 
     //Format x-axis labels with custom function.
     chart.xAxis
-        .tickFormat(d3.format(''));
+        .tickFormat(d3.format('d'));
 
     chart.yAxis
         .tickFormat(d3.format(''));
@@ -42,41 +44,9 @@ d3.json('postes-CR-CNRS.json', function(data) {
   });
 })
 </script>
-                    
-<div id='chart-classe2' style='width:70%'>
-    <h2>Évolution de la création des postes de CR 2è classe aux CNRS</h2>
-    <svg style='height:900px' />
-</div>
-<script  type='text/javascript'> 
-d3.json('postes-CR-CNRS-Classe2.json', function(data) {
-  nv.addGraph(function() {
-    var chart = nv.models.stackedAreaChart()
-                  .margin({right: 100})
-                  .x(function(d) { return d[0] }) 
-                  .y(function(d) { return d[1] }) 
-                  .transitionDuration(500)
-                  .showControls(true)
-                  .clipEdge(true);
 
-    //Format x-axis labels with custom function.
-    chart.xAxis
-        .tickFormat(d3.format(''));
 
-    chart.yAxis
-        .tickFormat(d3.format(''));
-
-    d3.select('#chart-classe2 svg')
-      .datum(data)
-      .call(chart);
-
-    nv.utils.windowResize(chart.update);
-
-    return chart;
-  });
-})
-</script>
-
-<div id='chart-classe1' style='width:70%'>
+<div id='chart-classe1' >
     <h2>Évolution de la création des postes de CR 1ère classe aux CNRS</h2>
     <svg style='height:900px' />
 </div>
@@ -93,7 +63,7 @@ d3.json('postes-CR-CNRS-Classe1.json', function(data) {
 
     //Format x-axis labels with custom function.
     chart.xAxis
-        .tickFormat(d3.format(''));
+        .tickFormat(d3.format('d'));
 
     chart.yAxis
         .tickFormat(d3.format(''));
@@ -103,12 +73,44 @@ d3.json('postes-CR-CNRS-Classe1.json', function(data) {
       .call(chart);
 
     nv.utils.windowResize(chart.update);
-
+    //d3.select('.nv-legendWrap').attr('transform', 'translate(0, -70)');
     return chart;
   });
 })
 </script>
 
+<div id='chart-classe2'>
+    <h2>Évolution de la création des postes de CR 2è classe aux CNRS</h2>
+    <svg style='height:900px' />
+</div>
+<script  type='text/javascript'> 
+d3.json('postes-CR-CNRS-Classe2.json', function(data) {
+  nv.addGraph(function() {
+    var chart = nv.models.stackedAreaChart()
+                  .margin({right: 100})
+                  .x(function(d) { return d[0] }) 
+                  .y(function(d) { return d[1] }) 
+                  .transitionDuration(500)
+                  .showControls(true)
+                  .clipEdge(true);
+
+    //Format x-axis labels with custom function.
+    chart.xAxis
+        .tickFormat(d3.format('d'));
+
+    chart.yAxis
+        .tickFormat(d3.format(''));
+
+    d3.select('#chart-classe2 svg')
+      .datum(data)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+})
+</script>
 
 </body>
 </html>
