@@ -13785,7 +13785,9 @@ nv.models.stackedAreaChart = function() {
       // Legend
 
       if (showLegend) {
-        var legendWidth = (showControls) ? availableWidth - controlWidth : availableWidth;
+        //var legendWidth = (showControls) ? availableWidth - controlWidth : availableWidth;
+// changement pour prendre en compte la legende en dessous des controles
+        var legendWidth = availableWidth;
         legend
           .width(legendWidth);
 
@@ -13800,7 +13802,8 @@ nv.models.stackedAreaChart = function() {
         }
 
         g.select('.nv-legendWrap')
-            .attr('transform', 'translate(' + (availableWidth-legendWidth) + ',' + (-margin.top) +')');
+           .attr('transform', 'translate(' + (availableWidth-legendWidth) + ',' + (-margin.top) +')');
+         g.select("rect").attr("width",availableWidth).attr("height",availableHeight);
       }
 
       //------------------------------------------------------------
@@ -13830,13 +13833,18 @@ nv.models.stackedAreaChart = function() {
             .datum(controlsData)
             .call(controls);
 
-
-        if ( margin.top != Math.max(controls.height(), legend.height()) ) {
+// changement pour prendre en compte la legende en dessous des controles
+/*        if ( margin.top != Math.max(controls.height(), legend.height()) ) {
           margin.top = Math.max(controls.height(), legend.height());
           availableHeight = (height || parseInt(container.style('height')) || 400)
                              - margin.top - margin.bottom;
-        }
+        }*/
 
+        if ( margin.top != controls.height()+ legend.height()) {
+          margin.top = controls.height()+legend.height();
+          availableHeight = (height || parseInt(container.style('height')) || 400)
+                             - margin.top - margin.bottom;
+        }
 
         g.select('.nv-controlsWrap')
             .attr('transform', 'translate(0,' + (-margin.top) +')');
