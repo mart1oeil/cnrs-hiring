@@ -3,12 +3,7 @@ from bs4 import BeautifulSoup
 import urllib
 import re
 import time
-from nvd3 import lineChart
-from nvd3 import stackedAreaChart
-from operator import itemgetter, attrgetter, methodcaller
-from datetime import date
-from datetime import datetime
-from datetime import date
+from operator import attrgetter
 import json
 
 class arreteCR:
