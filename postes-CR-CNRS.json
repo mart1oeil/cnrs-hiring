@@ -1,6 +1,5 @@
 [
     {
-        "name": "Interactions, particules, noyaux, du laboratoire au cosmos",
         "values": [
             [
                 2006,
@@ -51,10 +50,10 @@
                 10
             ]
         ],
-        "key": "section 1"
+        "key": "section 1",
+        "name": "Interactions, particules, noyaux, du laboratoire au cosmos"
     },
     {
-        "name": "Th\u00e9ories physiques : m\u00e9thodes, mod\u00e8les et applications",
         "values": [
             [
                 2006,
@@ -105,10 +104,10 @@
                 5
             ]
         ],
-        "key": "section 2"
+        "key": "section 2",
+        "name": "Th\u00e9ories physiques : m\u00e9thodes, mod\u00e8les et applications"
     },
     {
-        "name": "Mati\u00e8re condens\u00e9e : structures et propri\u00e9t\u00e9s \u00e9lectroniques",
         "values": [
             [
                 2006,
@@ -159,10 +158,10 @@
                 5
             ]
         ],
-        "key": "section 3"
+        "key": "section 3",
+        "name": "Mati\u00e8re condens\u00e9e : structures et propri\u00e9t\u00e9s \u00e9lectroniques"
     },
     {
-        "name": "Atomes et mol\u00e9cules, optique et lasers, plasmas chauds",
         "values": [
             [
                 2006,
@@ -213,10 +212,10 @@
                 6
             ]
         ],
-        "key": "section 4"
+        "key": "section 4",
+        "name": "Atomes et mol\u00e9cules, optique et lasers, plasmas chauds"
     },
     {
-        "name": "Mati\u00e8re condens\u00e9e : organisation et dynamique",
         "values": [
             [
                 2006,
@@ -267,10 +266,10 @@
                 6
             ]
         ],
-        "key": "section 5"
+        "key": "section 5",
+        "name": "Mati\u00e8re condens\u00e9e : organisation et dynamique"
     },
     {
-        "name": "Sciences de l'information : fondements de l'informatique, calculs, algorithmes, repr\u00e9sentations, exploitations",
         "values": [
             [
                 2006,
@@ -321,10 +320,10 @@
                 8
             ]
         ],
-        "key": "section 6"
+        "key": "section 6",
+        "name": "Sciences de l'information : fondements de l'informatique, calculs, algorithmes, repr\u00e9sentations, exploitations"
     },
     {
-        "name": "Sciences de l'information : signaux, images, langues, automatique, robotique, interactions, syst\u00e8mes int\u00e9gr\u00e9s mat\u00e9riel-logiciel",
         "values": [
             [
                 2006,
@@ -375,10 +374,10 @@
                 7
             ]
         ],
-        "key": "section 7"
+        "key": "section 7",
+        "name": "Sciences de l'information : signaux, images, langues, automatique, robotique, interactions, syst\u00e8mes int\u00e9gr\u00e9s mat\u00e9riel-logiciel"
     },
     {
-        "name": "Micro- et nanotechnologies, micro- et nanosyst\u00e8mes, photonique, \u00e9lectronique, \u00e9lectromagn\u00e9tisme, \u00e9nergie \u00e9lectrique",
         "values": [
             [
                 2006,
@@ -429,10 +428,10 @@
                 6
             ]
         ],
-        "key": "section 8"
+        "key": "section 8",
+        "name": "Micro- et nanotechnologies, micro- et nanosyst\u00e8mes, photonique, \u00e9lectronique, \u00e9lectromagn\u00e9tisme, \u00e9nergie \u00e9lectrique"
     },
     {
-        "name": "M\u00e9canique des solides. Mat\u00e9riaux et structures. Biom\u00e9canique. Acoustique",
         "values": [
             [
                 2006,
@@ -483,10 +482,10 @@
                 5
             ]
         ],
-        "key": "section 9"
+        "key": "section 9",
+        "name": "M\u00e9canique des solides. Mat\u00e9riaux et structures. Biom\u00e9canique. Acoustique"
     },
     {
-        "name": "Milieux fluides et r\u00e9actifs : transports, transferts, proc\u00e9d\u00e9s de transformation",
         "values": [
             [
                 2006,
@@ -537,10 +536,10 @@
                 8
             ]
         ],
-        "key": "section 10"
+        "key": "section 10",
+        "name": "Milieux fluides et r\u00e9actifs : transports, transferts, proc\u00e9d\u00e9s de transformation"
     },
     {
-        "name": "Syst\u00e8mes et mat\u00e9riaux supra et macromol\u00e9culaires : \u00e9laboration, propri\u00e9t\u00e9s, fonctions",
         "values": [
             [
                 2006,
@@ -591,10 +590,10 @@
                 6
             ]
         ],
-        "key": "section 11"
+        "key": "section 11",
+        "name": "Syst\u00e8mes et mat\u00e9riaux supra et macromol\u00e9culaires : \u00e9laboration, propri\u00e9t\u00e9s, fonctions"
     },
     {
-        "name": "Architectures mol\u00e9culaires : synth\u00e8ses, m\u00e9canismes et propri\u00e9t\u00e9s",
         "values": [
             [
                 2006,
@@ -645,10 +644,10 @@
                 6
             ]
         ],
-        "key": "section 12"
+        "key": "section 12",
+        "name": "Architectures mol\u00e9culaires : synth\u00e8ses, m\u00e9canismes et propri\u00e9t\u00e9s"
     },
     {
-        "name": "Chimie physique, th\u00e9orique et analytique",
         "values": [
             [
                 2006,
@@ -699,10 +698,10 @@
                 7
             ]
         ],
-        "key": "section 13"
+        "key": "section 13",
+        "name": "Chimie physique, th\u00e9orique et analytique"
     },
     {
-        "name": "Chimie de coordination, catalyse, interfaces et proc\u00e9d\u00e9s",
         "values": [
             [
                 2006,
@@ -753,10 +752,10 @@
                 6
             ]
         ],
-        "key": "section 14"
+        "key": "section 14",
+        "name": "Chimie de coordination, catalyse, interfaces et proc\u00e9d\u00e9s"
     },
     {
-        "name": "Chimie des mat\u00e9riaux, nanomat\u00e9riaux et proc\u00e9d\u00e9s",
         "values": [
             [
                 2006,
@@ -807,10 +806,10 @@
                 7
             ]
         ],
-        "key": "section 15"
+        "key": "section 15",
+        "name": "Chimie des mat\u00e9riaux, nanomat\u00e9riaux et proc\u00e9d\u00e9s"
     },
     {
-        "name": "Chimie et vivant",
         "values": [
             [
                 2006,
@@ -861,10 +860,10 @@
                 6
             ]
         ],
-        "key": "section 16"
+        "key": "section 16",
+        "name": "Chimie et vivant"
     },
     {
-        "name": "Syst\u00e8me solaire et univers lointain",
         "values": [
             [
                 2006,
@@ -915,10 +914,10 @@
                 5
             ]
         ],
-        "key": "section 17"
+        "key": "section 17",
+        "name": "Syst\u00e8me solaire et univers lointain"
     },
     {
-        "name": "Terre et plan\u00e8tes telluriques : structure, histoire, mod\u00e8les",
         "values": [
             [
                 2006,
@@ -969,10 +968,10 @@
                 5
             ]
         ],
-        "key": "section 18"
+        "key": "section 18",
+        "name": "Terre et plan\u00e8tes telluriques : structure, histoire, mod\u00e8les"
     },
     {
-        "name": "Syst\u00e8me terre : enveloppes superficielles",
         "values": [
             [
                 2006,
@@ -1023,10 +1022,10 @@
                 5
             ]
         ],
-        "key": "section 19"
+        "key": "section 19",
+        "name": "Syst\u00e8me terre : enveloppes superficielles"
     },
     {
-        "name": "Biologie mol\u00e9culaire et structurale, biochimie",
         "values": [
             [
                 2006,
@@ -1077,10 +1076,10 @@
                 9
             ]
         ],
-        "key": "section 20"
+        "key": "section 20",
+        "name": "Biologie mol\u00e9culaire et structurale, biochimie"
     },
     {
-        "name": "Organisation, expression, \u00e9volution des g\u00e9nomes. Bioinformatique et biologie des syst\u00e8mes",
         "values": [
             [
                 2006,
@@ -1131,10 +1130,10 @@
                 9
             ]
         ],
-        "key": "section 21"
+        "key": "section 21",
+        "name": "Organisation, expression, \u00e9volution des g\u00e9nomes. Bioinformatique et biologie des syst\u00e8mes"
     },
     {
-        "name": "Biologie cellulaire, d\u00e9veloppement, \u00e9volution-d\u00e9veloppement",
         "values": [
             [
                 2006,
@@ -1185,10 +1184,10 @@
                 11
             ]
         ],
-        "key": "section 22"
+        "key": "section 22",
+        "name": "Biologie cellulaire, d\u00e9veloppement, \u00e9volution-d\u00e9veloppement"
     },
     {
-        "name": "Biologie v\u00e9g\u00e9tale int\u00e9grative",
         "values": [
             [
                 2006,
@@ -1239,10 +1238,10 @@
                 6
             ]
         ],
-        "key": "section 23"
+        "key": "section 23",
+        "name": "Biologie v\u00e9g\u00e9tale int\u00e9grative"
     },
     {
-        "name": "Physiologie, vieillissement, tumorigen\u00e8se",
         "values": [
             [
                 2006,
@@ -1293,10 +1292,10 @@
                 6
             ]
         ],
-        "key": "section 24"
+        "key": "section 24",
+        "name": "Physiologie, vieillissement, tumorigen\u00e8se"
     },
     {
-        "name": "Neurobiologie mol\u00e9culaire et cellulaire, neurophysiologie",
         "values": [
             [
                 2006,
@@ -1347,10 +1346,10 @@
                 6
             ]
         ],
-        "key": "section 25"
+        "key": "section 25",
+        "name": "Neurobiologie mol\u00e9culaire et cellulaire, neurophysiologie"
     },
     {
-        "name": "Cerveau, cognition, comportement",
         "values": [
             [
                 2006,
@@ -1401,10 +1400,10 @@
                 7
             ]
         ],
-        "key": "section 26"
+        "key": "section 26",
+        "name": "Cerveau, cognition, comportement"
     },
     {
-        "name": "Relations h\u00f4te-pathog\u00e8ne, immunologie, inflammation",
         "values": [
             [
                 2006,
@@ -1455,10 +1454,10 @@
                 6
             ]
         ],
-        "key": "section 27"
+        "key": "section 27",
+        "name": "Relations h\u00f4te-pathog\u00e8ne, immunologie, inflammation"
     },
     {
-        "name": "Pharmacologie-ing\u00e9nierie et technologies pour la sant\u00e9-imagerie biom\u00e9dicale",
         "values": [
             [
                 2006,
@@ -1509,10 +1508,10 @@
                 8
             ]
         ],
-        "key": "section 28"
+        "key": "section 28",
+        "name": "Pharmacologie-ing\u00e9nierie et technologies pour la sant\u00e9-imagerie biom\u00e9dicale"
     },
     {
-        "name": "Biodiversit\u00e9, \u00e9volution et adaptations biologiques : des macromol\u00e9cules aux communaut\u00e9s",
         "values": [
             [
                 2006,
@@ -1563,10 +1562,10 @@
                 6
             ]
         ],
-        "key": "section 29"
+        "key": "section 29",
+        "name": "Biodiversit\u00e9, \u00e9volution et adaptations biologiques : des macromol\u00e9cules aux communaut\u00e9s"
     },
     {
-        "name": "Surface continentale et interfaces",
         "values": [
             [
                 2006,
@@ -1617,10 +1616,10 @@
                 6
             ]
         ],
-        "key": "section 30"
+        "key": "section 30",
+        "name": "Surface continentale et interfaces"
     },
     {
-        "name": "Hommes et milieux : \u00e9volution, interactions",
         "values": [
             [
                 2006,
@@ -1671,10 +1670,10 @@
                 6
             ]
         ],
-        "key": "section 31"
+        "key": "section 31",
+        "name": "Hommes et milieux : \u00e9volution, interactions"
     },
     {
-        "name": "Mondes anciens et m\u00e9di\u00e9vaux",
         "values": [
             [
                 2006,
@@ -1725,10 +1724,10 @@
                 5
             ]
         ],
-        "key": "section 32"
+        "key": "section 32",
+        "name": "Mondes anciens et m\u00e9di\u00e9vaux"
     },
     {
-        "name": "Mondes modernes et contemporains",
         "values": [
             [
                 2006,
@@ -1779,10 +1778,10 @@
                 5
             ]
         ],
-        "key": "section 33"
+        "key": "section 33",
+        "name": "Mondes modernes et contemporains"
     },
     {
-        "name": "Sciences du langage",
         "values": [
             [
                 2006,
@@ -1833,10 +1832,10 @@
                 6
             ]
         ],
-        "key": "section 34"
+        "key": "section 34",
+        "name": "Sciences du langage"
     },
     {
-        "name": "Sciences philosophiques et philologiques, sciences de l'art",
         "values": [
             [
                 2006,
@@ -1887,10 +1886,10 @@
                 5
             ]
         ],
-        "key": "section 35"
+        "key": "section 35",
+        "name": "Sciences philosophiques et philologiques, sciences de l'art"
     },
     {
-        "name": "Sociologie et sciences du droit",
         "values": [
             [
                 2006,
@@ -1941,10 +1940,10 @@
                 5
             ]
         ],
-        "key": "section 36"
+        "key": "section 36",
+        "name": "Sociologie et sciences du droit"
     },
     {
-        "name": "Economie et gestion",
         "values": [
             [
                 2006,
@@ -1995,10 +1994,10 @@
                 6
             ]
         ],
-        "key": "section 37"
+        "key": "section 37",
+        "name": "Economie et gestion"
     },
     {
-        "name": "Anthropologie et \u00e9tude comparative des soci\u00e9t\u00e9s contemporaines",
         "values": [
             [
                 2006,
@@ -2049,10 +2048,10 @@
                 5
             ]
         ],
-        "key": "section 38"
+        "key": "section 38",
+        "name": "Anthropologie et \u00e9tude comparative des soci\u00e9t\u00e9s contemporaines"
     },
     {
-        "name": "Espaces, territoires et soci\u00e9t\u00e9s",
         "values": [
             [
                 2006,
@@ -2103,10 +2102,10 @@
                 4
             ]
         ],
-        "key": "section 39"
+        "key": "section 39",
+        "name": "Espaces, territoires et soci\u00e9t\u00e9s"
     },
     {
-        "name": "Politique, Pouvoir, Organisation",
         "values": [
             [
                 2006,
@@ -2157,10 +2156,10 @@
                 5
             ]
         ],
-        "key": "section 40"
+        "key": "section 40",
+        "name": "Politique, Pouvoir, Organisation"
     },
     {
-        "name": "Math\u00e9matiques et interactions des math\u00e9matiques",
         "values": [
             [
                 2006,
@@ -2211,10 +2210,10 @@
                 15
             ]
         ],
-        "key": "section 41"
+        "key": "section 41",
+        "name": "Math\u00e9matiques et interactions des math\u00e9matiques"
     },
     {
-        "name": "Sciences de la communication",
         "values": [
             [
                 2006,
@@ -2265,10 +2264,10 @@
                 0
             ]
         ],
-        "key": "section 42"
+        "key": "section 42",
+        "name": "Sciences de la communication"
     },
     {
-        "name": "Mod\u00e9lisation des syst\u00e8mes biologiques, bioinformatique",
         "values": [
             [
                 2006,
@@ -2319,10 +2318,10 @@
                 0
             ]
         ],
-        "key": "section 43"
+        "key": "section 43",
+        "name": "Mod\u00e9lisation des syst\u00e8mes biologiques, bioinformatique"
     },
     {
-        "name": "Cognition, langage,traitement de l'information, syst\u00e8mes naturels et artificiels",
         "values": [
             [
                 2006,
@@ -2373,10 +2372,10 @@
                 0
             ]
         ],
-        "key": "section 44"
+        "key": "section 44",
+        "name": "Cognition, langage,traitement de l'information, syst\u00e8mes naturels et artificiels"
     },
     {
-        "name": "Dynamique des syst\u00e8mes environnementaux,d\u00e9veloppement durable, sant\u00e9 et soci\u00e9t\u00e9",
         "values": [
             [
                 2006,
@@ -2427,10 +2426,10 @@
                 0
             ]
         ],
-        "key": "section 45"
+        "key": "section 45",
+        "name": "Dynamique des syst\u00e8mes environnementaux,d\u00e9veloppement durable, sant\u00e9 et soci\u00e9t\u00e9"
     },
     {
-        "name": "Risques environnementaux et soci\u00e9t\u00e9",
         "values": [
             [
                 2006,
@@ -2481,10 +2480,10 @@
                 0
             ]
         ],
-        "key": "section 46"
+        "key": "section 46",
+        "name": "Risques environnementaux et soci\u00e9t\u00e9"
     },
     {
-        "name": "astroparticules",
         "values": [
             [
                 2006,
@@ -2535,10 +2534,10 @@
                 0
             ]
         ],
-        "key": "section 47"
+        "key": "section 47",
+        "name": "astroparticules"
     },
     {
-        "name": "sciences de la communication",
         "values": [
             [
                 2006,
@@ -2589,10 +2588,10 @@
                 0
             ]
         ],
-        "key": "section 48"
+        "key": "section 48",
+        "name": "sciences de la communication"
     },
     {
-        "name": "Mod\u00e9lisation et analyse des donn\u00e9es et des syst\u00e8mes biologiques : approches informatiques, math\u00e9matiques et physiques",
         "values": [
             [
                 2006,
@@ -2643,10 +2642,10 @@
                 7
             ]
         ],
-        "key": "section 51"
+        "key": "section 51",
+        "name": "Mod\u00e9lisation et analyse des donn\u00e9es et des syst\u00e8mes biologiques : approches informatiques, math\u00e9matiques et physiques"
     },
     {
-        "name": "Environnements soci\u00e9t\u00e9s : du fondamental \u00e0 l'op\u00e9rationnel",
         "values": [
             [
                 2006,
@@ -2697,10 +2696,10 @@
                 3
             ]
         ],
-        "key": "section 52"
+        "key": "section 52",
+        "name": "Environnements soci\u00e9t\u00e9s : du fondamental \u00e0 l'op\u00e9rationnel"
     },
     {
-        "name": "M\u00e9thodes, pratiques et communications des sciences et des techniques",
         "values": [
             [
                 2006,
@@ -2751,10 +2750,10 @@
                 5
             ]
         ],
-        "key": "section 53"
+        "key": "section 53",
+        "name": "M\u00e9thodes, pratiques et communications des sciences et des techniques"
     },
     {
-        "name": "M\u00e9thodes exp\u00e9rimentales, concepts et instrumentation en sciences de la mati\u00e8re et en ing\u00e9nierie pour le vivant",
         "values": [
             [
                 2006,
@@ -2805,6 +2804,7 @@
                 5
             ]
         ],
-        "key": "section 54"
+        "key": "section 54",
+        "name": "M\u00e9thodes exp\u00e9rimentales, concepts et instrumentation en sciences de la mati\u00e8re et en ing\u00e9nierie pour le vivant"
     }
 ]
