@@ -1,5 +1,6 @@
 [
     {
+        "key": "Section 1",
         "name": "Interactions, particules, noyaux, du laboratoire au cosmos",
         "values": [
             [
@@ -50,10 +51,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 1"
+        ]
     },
     {
+        "key": "Section 2",
         "name": "Th\u00e9ories physiques : m\u00e9thodes, mod\u00e8les et applications",
         "values": [
             [
@@ -104,10 +105,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 2"
+        ]
     },
     {
+        "key": "Section 3",
         "name": "Mati\u00e8re condens\u00e9e : structures et propri\u00e9t\u00e9s \u00e9lectroniques",
         "values": [
             [
@@ -158,10 +159,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 3"
+        ]
     },
     {
+        "key": "Section 4",
         "name": "Atomes et mol\u00e9cules, optique et lasers, plasmas chauds",
         "values": [
             [
@@ -212,10 +213,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 4"
+        ]
     },
     {
+        "key": "Section 5",
         "name": "Mati\u00e8re condens\u00e9e : organisation et dynamique",
         "values": [
             [
@@ -266,10 +267,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 5"
+        ]
     },
     {
+        "key": "Section 6",
         "name": "Sciences de l'information : fondements de l'informatique, calculs, algorithmes, repr\u00e9sentations, exploitations",
         "values": [
             [
@@ -320,10 +321,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 6"
+        ]
     },
     {
+        "key": "Section 7",
         "name": "Sciences de l'information : signaux, images, langues, automatique, robotique, interactions, syst\u00e8mes int\u00e9gr\u00e9s mat\u00e9riel-logiciel",
         "values": [
             [
@@ -374,10 +375,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 7"
+        ]
     },
     {
+        "key": "Section 8",
         "name": "Micro- et nanotechnologies, micro- et nanosyst\u00e8mes, photonique, \u00e9lectronique, \u00e9lectromagn\u00e9tisme, \u00e9nergie \u00e9lectrique",
         "values": [
             [
@@ -428,10 +429,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 8"
+        ]
     },
     {
+        "key": "Section 9",
         "name": "M\u00e9canique des solides. Mat\u00e9riaux et structures. Biom\u00e9canique. Acoustique",
         "values": [
             [
@@ -482,10 +483,10 @@
                 2017,
                 0
             ]
-        ],
-        "key": "Section 9"
+        ]
     },
     {
+        "key": "Section 10",
         "name": "Milieux fluides et r\u00e9actifs : transports, transferts, proc\u00e9d\u00e9s de transformation",
         "values": [
             [
@@ -536,10 +537,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 10"
+        ]
     },
     {
+        "key": "Section 11",
         "name": "Syst\u00e8mes et mat\u00e9riaux supra et macromol\u00e9culaires : \u00e9laboration, propri\u00e9t\u00e9s, fonctions",
         "values": [
             [
@@ -590,10 +591,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 11"
+        ]
     },
     {
+        "key": "Section 12",
         "name": "Architectures mol\u00e9culaires : synth\u00e8ses, m\u00e9canismes et propri\u00e9t\u00e9s",
         "values": [
             [
@@ -644,10 +645,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 12"
+        ]
     },
     {
+        "key": "Section 13",
         "name": "Chimie physique, th\u00e9orique et analytique",
         "values": [
             [
@@ -698,10 +699,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 13"
+        ]
     },
     {
+        "key": "Section 14",
         "name": "Chimie de coordination, catalyse, interfaces et proc\u00e9d\u00e9s",
         "values": [
             [
@@ -752,10 +753,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 14"
+        ]
     },
     {
+        "key": "Section 15",
         "name": "Chimie des mat\u00e9riaux, nanomat\u00e9riaux et proc\u00e9d\u00e9s",
         "values": [
             [
@@ -806,10 +807,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 15"
+        ]
     },
     {
+        "key": "Section 16",
         "name": "Chimie et vivant",
         "values": [
             [
@@ -860,10 +861,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 16"
+        ]
     },
     {
+        "key": "Section 17",
         "name": "Syst\u00e8me solaire et univers lointain",
         "values": [
             [
@@ -914,10 +915,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 17"
+        ]
     },
     {
+        "key": "Section 18",
         "name": "Terre et plan\u00e8tes telluriques : structure, histoire, mod\u00e8les",
         "values": [
             [
@@ -968,10 +969,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 18"
+        ]
     },
     {
+        "key": "Section 19",
         "name": "Syst\u00e8me terre : enveloppes superficielles",
         "values": [
             [
@@ -1022,10 +1023,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 19"
+        ]
     },
     {
+        "key": "Section 20",
         "name": "Biologie mol\u00e9culaire et structurale, biochimie",
         "values": [
             [
@@ -1076,10 +1077,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 20"
+        ]
     },
     {
+        "key": "Section 21",
         "name": "Organisation, expression, \u00e9volution des g\u00e9nomes. Bioinformatique et biologie des syst\u00e8mes",
         "values": [
             [
@@ -1130,10 +1131,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 21"
+        ]
     },
     {
+        "key": "Section 22",
         "name": "Biologie cellulaire, d\u00e9veloppement, \u00e9volution-d\u00e9veloppement",
         "values": [
             [
@@ -1184,10 +1185,10 @@
                 2017,
                 4
             ]
-        ],
-        "key": "Section 22"
+        ]
     },
     {
+        "key": "Section 23",
         "name": "Biologie v\u00e9g\u00e9tale int\u00e9grative",
         "values": [
             [
@@ -1238,10 +1239,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 23"
+        ]
     },
     {
+        "key": "Section 24",
         "name": "Physiologie, vieillissement, tumorigen\u00e8se",
         "values": [
             [
@@ -1292,10 +1293,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 24"
+        ]
     },
     {
+        "key": "Section 25",
         "name": "Neurobiologie mol\u00e9culaire et cellulaire, neurophysiologie",
         "values": [
             [
@@ -1346,10 +1347,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 25"
+        ]
     },
     {
+        "key": "Section 26",
         "name": "Cerveau, cognition, comportement",
         "values": [
             [
@@ -1400,10 +1401,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 26"
+        ]
     },
     {
+        "key": "Section 27",
         "name": "Relations h\u00f4te-pathog\u00e8ne, immunologie, inflammation",
         "values": [
             [
@@ -1454,10 +1455,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 27"
+        ]
     },
     {
+        "key": "Section 28",
         "name": "Pharmacologie-ing\u00e9nierie et technologies pour la sant\u00e9-imagerie biom\u00e9dicale",
         "values": [
             [
@@ -1508,10 +1509,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 28"
+        ]
     },
     {
+        "key": "Section 29",
         "name": "Biodiversit\u00e9, \u00e9volution et adaptations biologiques : des macromol\u00e9cules aux communaut\u00e9s",
         "values": [
             [
@@ -1562,10 +1563,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 29"
+        ]
     },
     {
+        "key": "Section 30",
         "name": "Surface continentale et interfaces",
         "values": [
             [
@@ -1616,10 +1617,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 30"
+        ]
     },
     {
+        "key": "Section 31",
         "name": "Hommes et milieux : \u00e9volution, interactions",
         "values": [
             [
@@ -1670,10 +1671,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 31"
+        ]
     },
     {
+        "key": "Section 32",
         "name": "Mondes anciens et m\u00e9di\u00e9vaux",
         "values": [
             [
@@ -1724,10 +1725,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 32"
+        ]
     },
     {
+        "key": "Section 33",
         "name": "Mondes modernes et contemporains",
         "values": [
             [
@@ -1778,10 +1779,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 33"
+        ]
     },
     {
+        "key": "Section 34",
         "name": "Sciences du langage",
         "values": [
             [
@@ -1832,10 +1833,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 34"
+        ]
     },
     {
+        "key": "Section 35",
         "name": "Sciences philosophiques et philologiques, sciences de l'art",
         "values": [
             [
@@ -1886,10 +1887,10 @@
                 2017,
                 3
             ]
-        ],
-        "key": "Section 35"
+        ]
     },
     {
+        "key": "Section 36",
         "name": "Sociologie et sciences du droit",
         "values": [
             [
@@ -1940,10 +1941,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 36"
+        ]
     },
     {
+        "key": "Section 37",
         "name": "Economie et gestion",
         "values": [
             [
@@ -1994,10 +1995,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 37"
+        ]
     },
     {
+        "key": "Section 38",
         "name": "Anthropologie et \u00e9tude comparative des soci\u00e9t\u00e9s contemporaines",
         "values": [
             [
@@ -2048,10 +2049,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 38"
+        ]
     },
     {
+        "key": "Section 39",
         "name": "Espaces, territoires et soci\u00e9t\u00e9s",
         "values": [
             [
@@ -2102,10 +2103,10 @@
                 2017,
                 1
             ]
-        ],
-        "key": "Section 39"
+        ]
     },
     {
+        "key": "Section 40",
         "name": "Politique, Pouvoir, Organisation",
         "values": [
             [
@@ -2156,10 +2157,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 40"
+        ]
     },
     {
+        "key": "Section 41",
         "name": "Math\u00e9matiques et interactions des math\u00e9matiques",
         "values": [
             [
@@ -2210,10 +2211,10 @@
                 2017,
                 2
             ]
-        ],
-        "key": "Section 41"
+        ]
     },
     {
+        "key": "Interdisciplinaires",
         "name": "Commissions interdisciplinaires",
         "values": [
             [
@@ -2264,7 +2265,6 @@
                 2017,
                 4
             ]
-        ],
-        "key": "Interdisciplinaires"
+        ]
     }
 ]

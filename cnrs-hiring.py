@@ -104,7 +104,10 @@ class arreteCR:
         return self.postes
 
 # Liste des urls des arrêtés de création de poste de chargé de recherche au CNRS
-urlsArretesCR=["https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480025&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000033480019&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490422&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000031490420&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000029813331","https://www.legifrance.gouv.fr/eli/arrete/2014/11/28/MENZ1401228A/jo","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=BEBA6FEC29B8F77879D8D969E3C03AD9.tpdila12v_1?cidTexte=JORFTEXT000028254219&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000028253873","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000028254221&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706545&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000026706549&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=21FA7807711039CC01C3F0495E63C172.tpdila18v_3?cidTexte=JORFTEXT000024874335&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000024873109","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000024874337&dateTexte=&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000023149440","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=94074D80BF1B2F67F44A9954C071179B.tpdila22v_1?cidTexte=JORFTEXT000023149444&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000023149317","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=ADF7A19107CADD7CD34A852F28C4B7DD.tpdila13v_2?cidTexte=JORFTEXT000021358052&dateTexte=&oldAction=rechJO&categorieLien=id&idJO=JORFCONT000021357990","https://www.legifrance.gouv.fr/eli/arrete/2009/11/10/ESRZ0900458A/jo","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857342&dateTexte=","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000019857344&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572706&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000017572708&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do;jsessionid=74DB883A02229D7A7258060ACDB6E500.tpdila13v_3?cidTexte=JORFTEXT000000241564&categorieLien=id","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000790865","https://www.legifrance.gouv.fr/eli/arrete/2005/11/22/RECZ0500201A/jo/texte","https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000607247&categorieLien=id"]
+urlsArretesCR=[]
+with open("arretes-cnrs.txt","r") as arretesFile:
+    urlsArretesCR=arretesFile.read().splitlines()
+    
 
 
 arretesCR=[]
@@ -143,15 +146,12 @@ for numsection,namesection  in sectionsdico.items():
     jsontab.append(jsonSec)
     jsonTabClasse1.append(jsonSecClasse1)
     jsonTabClasse2.append(jsonSecClasse2)
-
-out_file = open("postes-CR-CNRS.json","w")
-json.dump(jsontab,out_file, indent=4)     
-out_file.close()
-
-out_file = open("postes-CR-CNRS-Classe1.json","w")
-json.dump(jsonTabClasse1,out_file, indent=4)     
-out_file.close()
-
-out_file = open("postes-CR-CNRS-Classe2.json","w")
-json.dump(jsonTabClasse2,out_file, indent=4)     
-out_file.close()
+    
+with open("postes-CR-CNRS.json","w") as out_file:
+    json.dump(jsontab,out_file, indent=4)     
+    
+with open("postes-CR-CNRS-Classe1.json","w") as out_file:
+    json.dump(jsonTabClasse1,out_file, indent=4)   
+    
+with open("postes-CR-CNRS-Classe2.json","w") as out_file:
+    json.dump(jsonTabClasse2,out_file, indent=4)   
