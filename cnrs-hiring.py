@@ -24,12 +24,25 @@ class arreteCR:
         soup = BeautifulSoup(r,'lxml')
         body=soup.find('body')
         title=soup.find('title')
-        expressionTitle=r".*autorisant au titre de l'année (?P<datePubli>[0-9]+) .*recrutement de chargés de recherche de (?P<classe>[0-9]+).*"
+        # récupération de la date
+        expressionTitle=r".*autorisant au titre de l'année (?P<datePubli>[0-9]+) .*"
         p = re.compile(expressionTitle)    
         titleData=re.search(p, str(title))
+        #récupération de la classe
+        expressionTitle2=".*recrutement de chargés de recherche de (?P<classe>[0-9]+).*"   
+        p2 = re.compile(expressionTitle2)    
+        titleData2=re.search(p2, str(title))        
+        print(self.url)
         if titleData is not None:
             self.year=int(titleData.group('datePubli'))
-            self.classe=titleData.group('classe')
+            print(self.year)
+            
+        if titleData2 is not None:            
+            self.classe=titleData2.group('classe')
+            print(self.classe)
+        else:
+            self.classe='classe normale'
+
             
         # correspondance sections avant 2013 et après 2013
         correspondances={1:41,3:1,6:3,7:[6,7],20:30,21:20,22:21,23:22,24:[24,25,27],25:24,26:22,27:26,28:23,30:28}
@@ -138,11 +151,13 @@ for numsection,namesection  in sectionsdico.items():
         if arret.classe=="1": 
             jsonSec["values"].append([arret.year,arret.postes[numsection]])
             jsonSecClasse1["values"].append([arret.year,arret.postes[numsection]])
-        else:           
+        elif arret.classe=="2":           
             classe1=jsonSec["values"][-1][-1]
             classe2=classe1+arret.postes[numsection]
             jsonSec["values"][-1]=[arret.year,classe2]
             jsonSecClasse2["values"].append([arret.year,arret.postes[numsection]])
+        elif arret.classe=="classe normale":
+             jsonSec["values"].append([arret.year,arret.postes[numsection]])            
     jsontab.append(jsonSec)
     jsonTabClasse1.append(jsonSecClasse1)
     jsonTabClasse2.append(jsonSecClasse2)
