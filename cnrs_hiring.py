@@ -149,17 +149,17 @@ SECTIONS_DICO = ({1:"Interactions, particules, noyaux, du laboratoire au cosmos"
                   3:"Matière condensée : structures et propriétés électroniques",
                   4:"Atomes et molécules, optique et lasers, plasmas chauds",
                   5:"Matière condensée : organisation et dynamique",
-                  6:"Sciences de l'information : fondements de l'informatique, calculs,\
-                  algorithmes, représentations, exploitations",
-                  7:"Sciences de l'information : signaux, images, langues, automatique,\
-                  robotique, interactions, systèmes intégrés matériel-logiciel",
-                  8:"Micro- et nanotechnologies, micro- et nanosystèmes, photonique,\
-                  électronique, électromagnétisme, énergie électrique",
+                  6:("Sciences de l'information : fondements de l'informatique, calculs, "
+                     "algorithmes, représentations, exploitations"),
+                  7:("Sciences de l'information : signaux, images, langues, automatique, "
+                     "robotique, interactions, systèmes intégrés matériel-logiciel"),
+                  8:("Micro- et nanotechnologies, micro- et nanosystèmes, photonique, "
+                     "électronique, électromagnétisme, énergie électrique"),
                   9:"Mécanique des solides. Matériaux et structures. Biomécanique. Acoustique",
-                  10:"Milieux fluides et réactifs : transports,\
-                  transferts, procédés de transformation",
-                  11:"Systèmes et matériaux supra et macromoléculaires\
-                  : élaboration, propriétés, fonctions",
+                  10:("Milieux fluides et réactifs : transports, "
+                      "transferts, procédés de transformation"),
+                  11:("Systèmes et matériaux supra et macromoléculaires "
+                      ": élaboration, propriétés, fonctions"),
                   12:"Architectures moléculaires : synthèses, mécanismes et propriétés",
                   13:"Chimie physique, théorique et analytique",
                   14:"Chimie de coordination, catalyse, interfaces et procédés",
@@ -169,19 +169,19 @@ SECTIONS_DICO = ({1:"Interactions, particules, noyaux, du laboratoire au cosmos"
                   18:"Terre et planètes telluriques : structure, histoire, modèles",
                   19:"Système terre : enveloppes superficielles",
                   20:"Biologie moléculaire et structurale, biochimie",
-                  21:"Organisation, expression, évolution des génomes.\
-                  Bioinformatique et biologie des systèmes",
+                  21:("Organisation, expression, évolution des génomes. "
+                      "Bioinformatique et biologie des systèmes"),
                   22:"Biologie cellulaire, développement, évolution-développement",
                   23:"Biologie végétale intégrative",
                   24:"Physiologie, vieillissement, tumorigenèse",
-                  25:"Neurobiologie moléculaire et cellulaire,\
-                  neurophysiologie",
+                  25:("Neurobiologie moléculaire et cellulaire, "
+                      "neurophysiologie"),
                   26:"Cerveau, cognition, comportement",
                   27:"Relations hôte-pathogène, immunologie, inflammation",
-                  28:"Pharmacologie-ingénierie et technologies\
-                  pour la santé-imagerie biomédicale",
-                  29:"Biodiversité, évolution et adaptations biologiques\
-                  : des macromolécules aux communautés",
+                  28:("Pharmacologie-ingénierie et technologies "
+                      "pour la santé-imagerie biomédicale"),
+                  29:("Biodiversité, évolution et adaptations biologiques "
+                      ": des macromolécules aux communautés"),
                   30:"Surface continentale et interfaces",
                   31:"Hommes et milieux : évolution, interactions",
                   32:"Mondes anciens et médiévaux",
