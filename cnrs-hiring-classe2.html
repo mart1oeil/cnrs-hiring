@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>CNRS - Évolution de la création des postes d'Ingénieurs d'études au CNRS au concours externe</title>
+    <title>CNRS - Hiring</title>
     <link href="./nv.d3.css" rel="stylesheet">
     <script src="./d3.v3.js"></script>
     <script src="./nv.d3.js"></script>
@@ -10,18 +10,13 @@
 
 <body>
 <figure>             
-<div id='chart-total'>
+<div id='chart-classe2'>
     <svg style='height:900px' />
 </div>
-    <figcaption>Évolution de la création des postes d'Ingénieurs d'études au CNRS au concours externe</figcaption>
-
-
+    <figcaption>Évolution de la création des postes de CR 2è classe au CNRS</figcaption>
 </figure>
-<hr/>   
-    
-
 <script  type='text/javascript'> 
-d3.json('postes-IE-CNRS-Externe.json', function(data) {
+d3.json('postes-CR-CNRS-Classe2.json', function(data) {
   nv.addGraph(function() {
     var chart = nv.models.stackedAreaChart()
                   .margin({right: 100})
@@ -38,7 +33,7 @@ d3.json('postes-IE-CNRS-Externe.json', function(data) {
     chart.yAxis
         .tickFormat(d3.format(''));
 
-    d3.select('#chart-total svg')
+    d3.select('#chart-classe2 svg')
       .datum(data)
       .call(chart);
 

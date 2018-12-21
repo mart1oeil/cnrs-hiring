@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>CNRS - Évolution de la création des postes d'Ingénieurs d'études au CNRS au concours externe</title>
+    <title>CNRS - Évolution de la création des postes de techniciens au CNRS au concours externe</title>
     <link href="./nv.d3.css" rel="stylesheet">
     <script src="./d3.v3.js"></script>
     <script src="./nv.d3.js"></script>
@@ -13,7 +13,7 @@
 <div id='chart-total'>
     <svg style='height:900px' />
 </div>
-    <figcaption>Évolution de la création des postes d'Ingénieurs d'études au CNRS au concours externe</figcaption>
+    <figcaption>Évolution de la création des postes de techniciens au CNRS au concours externe</figcaption>
 
 
 </figure>
@@ -21,7 +21,7 @@
     
 
 <script  type='text/javascript'> 
-d3.json('postes-IE-CNRS-Externe.json', function(data) {
+d3.json('postes-T-CNRS-Externe.json', function(data) {
   nv.addGraph(function() {
     var chart = nv.models.stackedAreaChart()
                   .margin({right: 100})
