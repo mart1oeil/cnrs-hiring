@@ -51,9 +51,14 @@ class ArreteITA(Arrete):
 		exp_title = re.compile(expression_title)
 		title_data = re.search(exp_title, str(title))
 		#récupération de la classe
-		expression_title2 = ".* recrutement dans le grade des ingénieurs d'études de (?P<classe>[0-9]+).*"
+		expression_title2 = ".*ingénieurs d'études de (?P<classe>[0-9]+).*"
 		exp_title2 = re.compile(expression_title2)
 		title_data2 = re.search(exp_title2, str(title))
+
+		expression_title4 = ".*ingénieurs de recherche de (?P<classe>[0-9]+).*"
+		exp_title4 = re.compile(expression_title4)
+		title_data4 = re.search(exp_title4, str(title))
+
 
 		expression_title3 = ".*examens professionnalisés réservés.*"
 		exp_title3 = re.compile(expression_title3)
@@ -71,9 +76,18 @@ class ArreteITA(Arrete):
 
 		if title_data2 is not None:
 			self.classe = title_data2.group('classe')
+		elif title_data4 is not None:
+			self.classe = title_data4.group('classe')
 		else:
-			self.classe = 'classe normale'
-		baps = re.split("BAP ", str(body), flags=re.S)
+			expression_title5 = ".*hors classe*"
+			exp_title5 = re.compile(expression_title5)
+			title_data5 = re.search(exp_title5, str(title))
+			if title_data5 is not None:
+				self.classe = "hors classe"
+			else:
+				self.classe = 'classe normale'
+
+		baps = re.split(r"[<p>|<br>]BAP", str(body), flags=re.S)
 		for bap in baps:
 			self.fill_bap(bap)
 
@@ -85,25 +99,22 @@ class ArreteITA(Arrete):
 		cette méthode remplie le tableau pour la section donnée
 		il retourne le total de postes calculé.
 		'''
-		#Pour chaque section, on récupère son numéro et on vire les retours à la ligne
-		exp = r"^([A-J]+)(.*)"
+		#Pour chaque bap, on récupère sa lettre et on vire les retours à la ligne
+		exp = r"^[ ]*([A-J]+)(.*)"
 		exp = re.compile(exp)
 		bap_table = re.findall(exp, bap.replace('\n', ''))
 		total_bap = 0
-
 		if bap_table:
 			total_bap = 0
 			bap_name = bap_table[0][0]
 			text = bap_table[0][1]
-			postes_table = re.findall(r"[Concours|CONCOURS] [n|N]° [0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+", text)
+			postes_table = re.findall(r"[Concours|CONCOURS] [n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+", text)
 			for postes in postes_table:
-				nbr_postes = re.match(r"[Concours|CONCOURS] [n|N]° [0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)", postes)
+				nbr_postes = re.match(r"[Concours|CONCOURS] [n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)", postes)
 				total_bap = total_bap+int(nbr_postes.group(1))
-
 
 			self.postes[bap_name] = total_bap
 			self.postes["Total"] = self.postes["Total"] + total_bap
-
 
 class ArreteCR(Arrete):
 	'''
@@ -300,7 +311,9 @@ BAP_DICO = ({"A":"Sciences du vivant, de la terre et de l'environnement",
 
 FILE_LIST_ARRETES_CR = "arretes-cnrs-cr.txt"
 FILE_LIST_ARRETES_IE = "arretes-cnrs-ie.txt"
+FILE_LIST_ARRETES_IR = "arretes-cnrs-ir.txt"
 FILE_LIST_ARRETES_T = "arretes-cnrs-t.txt"
+FILE_LIST_ARRETES_AI = "arretes-cnrs-ai.txt"
 
 def liste_arretes_tries(file, mode):
 	'''
@@ -317,12 +330,13 @@ def liste_arretes_tries(file, mode):
 
 		if mode == "cr":
 			arret = ArreteCR(url_arret)
-		if mode == "ie" or mode == "t":
+		if mode == "ie" or mode == "t" or mode == "ir" or mode == "ai":
 			arret = ArreteITA(url_arret)
 		arret.postes_cnrs()
 		arretes.append(arret)
 		#On trie par année
 		arretes = sorted(arretes, key=attrgetter('year'))
+
 	return arretes
 
 def build_cr_jsonfile():
@@ -375,7 +389,10 @@ def build_ita_jsonfile(mode):
 	epr_file_name = "postes-"+mode.upper()+"-CNRS-EPR.json"
 	if mode == "ie":
 		arretes = liste_arretes_tries(FILE_LIST_ARRETES_IE, mode)
-
+	elif mode == "ir":
+		arretes = liste_arretes_tries(FILE_LIST_ARRETES_IR, mode)
+	elif mode == "ai":
+		arretes = liste_arretes_tries(FILE_LIST_ARRETES_AI, mode)
 	else:
 		arretes = liste_arretes_tries(FILE_LIST_ARRETES_T, mode)
 	json_tab = []
@@ -387,7 +404,7 @@ def build_ita_jsonfile(mode):
 		json_bap_ext = {"key": key, "name": name_bap, "values":[]}
 		json_bap_epr = {"key": key, "name": name_bap, "values":[]}
 		for arret in arretes:
-
+			#print("bap "+ str(key) + " année "+str(arret.year)+" classe "+str(arret.classe)+" postes "+ str(arret.postes[letter_bap]))
 			if json_bap["values"] and arret.year == json_bap["values"][-1][0]:
 				json_bap["values"].append([arret.year, json_bap["values"].pop()[1]+arret.postes[letter_bap]])
 			else:
@@ -395,15 +412,15 @@ def build_ita_jsonfile(mode):
 			if arret.epr:
 				if json_bap_epr["values"] and arret.year == json_bap_epr["values"][-1][0]:
 					json_bap_epr["values"].append([arret.year,
-									json_bap_epr["values"].pop()[1]+
-									arret.postes[letter_bap]])
+                                    json_bap_epr["values"].pop()[1]+
+                                    arret.postes[letter_bap]])
 				else:
 					json_bap_epr["values"].append([arret.year, arret.postes[letter_bap]])
 			else:
 				if json_bap_ext["values"] and arret.year == json_bap_ext["values"][-1][0]:
 					json_bap_ext["values"].append([arret.year,
-									json_bap_ext["values"].pop()[1]
-									+arret.postes[letter_bap]])
+                                    json_bap_ext["values"].pop()[1]
+                                    +arret.postes[letter_bap]])
 				else:
 					json_bap_ext["values"].append([arret.year, arret.postes[letter_bap]])
 
@@ -429,7 +446,7 @@ def main(argv):
 	mode = argv[0]
 	if mode == "cr":
 		build_cr_jsonfile()
-	elif mode == "ie" or mode == "t":
+	elif mode == "ie" or mode == "t" or mode == "ir" or mode == "ai":
 		build_ita_jsonfile(mode)
 	else:
 		print("Pas de catégorie de postes de ce type")
