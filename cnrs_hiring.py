@@ -60,15 +60,18 @@ class ArreteITA(Arrete):
 		title_data4 = re.search(exp_title4, str(title))
 
 
-		expression_title3 = ".*examens professionnalisés réservés.*"
+
+		if title_data is not None:
+			self.year = int(title_data.group('datePubli'))
+
+
+		expression_title3 = ".*examen[s]* professionnalisé[s]* réservé[s]*.*"
 		exp_title3 = re.compile(expression_title3)
 		title_data3 = re.search(exp_title3, str(title))
 		if title_data3 is not None:
 			self.epr = True
+			print("EPR "+str(self.year)+" CLASSE "+str(self.classe)+" url: "+self.url)
 
-
-		if title_data is not None:
-			self.year = int(title_data.group('datePubli'))
 		# else:
 		# 	expression_title = r".*portant ouverture au titre de l'année (?P<datePubli>[0-9]+) .*"
 		# 	exp_title = re.compile(expression_title)
@@ -404,12 +407,16 @@ def build_ita_jsonfile(mode):
 		json_bap_ext = {"key": key, "name": name_bap, "values":[]}
 		json_bap_epr = {"key": key, "name": name_bap, "values":[]}
 		for arret in arretes:
-			#print("bap "+ str(key) + " année "+str(arret.year)+" classe "+str(arret.classe)+" postes "+ str(arret.postes[letter_bap]))
 			if json_bap["values"] and arret.year == json_bap["values"][-1][0]:
 				json_bap["values"].append([arret.year, json_bap["values"].pop()[1]+arret.postes[letter_bap]])
 			else:
 				json_bap["values"].append([arret.year, arret.postes[letter_bap]])
 			if arret.epr:
+				if json_bap_epr["values"] and arret.year > json_bap_epr["values"][-1][0]:
+					year = json_bap_epr["values"][-1][0]
+					while year < arret.year - 1:
+						year = year + 1
+						json_bap_epr["values"].append([year, 0])
 				if json_bap_epr["values"] and arret.year == json_bap_epr["values"][-1][0]:
 					json_bap_epr["values"].append([arret.year,
                                     json_bap_epr["values"].pop()[1]+
