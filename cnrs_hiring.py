@@ -25,6 +25,13 @@ class Arrete(object):
 	def __str__(self):
 		return  "Arrêté postes CNRS Année %s, classe %s" % (self.year, self.classe)
 
+	def postes_cnrs(self):
+		'''
+		Cette méthode permet de récupérer les nombres de postes dans un arrêté et
+		à les attribuer à chaque section / BAP dans le tableau des postes.
+		'''
+		pass
+
 class ArreteITA(Arrete):
 	'''
 	Un ArreteITA est une page web de legifrance créée chaque année
@@ -50,41 +57,35 @@ class ArreteITA(Arrete):
 		expression_title = r".*au titre de l'année (?P<datePubli>[0-9]+) .*"
 		exp_title = re.compile(expression_title)
 		title_data = re.search(exp_title, str(title))
-		#récupération de la classe
-		expression_title2 = ".*ingénieurs d'études de (?P<classe>[0-9]+).*"
-		exp_title2 = re.compile(expression_title2)
-		title_data2 = re.search(exp_title2, str(title))
-
-		expression_title4 = ".*ingénieurs de recherche de (?P<classe>[0-9]+).*"
-		exp_title4 = re.compile(expression_title4)
-		title_data4 = re.search(exp_title4, str(title))
-
-
 
 		if title_data is not None:
 			self.year = int(title_data.group('datePubli'))
 
 
-		expression_title3 = ".*examen[s]* professionnalisé[s]* réservé[s]*.*"
-		exp_title3 = re.compile(expression_title3)
-		title_data3 = re.search(exp_title3, str(title))
+		expression_title = ".*examen[s]* professionnalisé[s]* réservé[s]*.*"
+		exp_title = re.compile(expression_title)
+		title_data3 = re.search(exp_title, str(title))
 		if title_data3 is not None:
 			self.epr = True
 			print("EPR "+str(self.year)+" CLASSE "+str(self.classe)+" url: "+self.url)
 
-		# else:
-		# 	expression_title = r".*portant ouverture au titre de l'année (?P<datePubli>[0-9]+) .*"
-		# 	exp_title = re.compile(expression_title)
-		# 	title_data = re.search(exp_title, str(title))
+		#récupération de la classe
+		expression_title = ".*ingénieurs d'études de (?P<classe>[0-9]+).*"
+		exp_title = re.compile(expression_title)
+		title_data2 = re.search(exp_title, str(title))
+
+		expression_title = ".*ingénieurs de recherche de (?P<classe>[0-9]+).*"
+		exp_title = re.compile(expression_title)
+		title_data4 = re.search(exp_title, str(title))
 
 		if title_data2 is not None:
 			self.classe = title_data2.group('classe')
 		elif title_data4 is not None:
 			self.classe = title_data4.group('classe')
 		else:
-			expression_title5 = ".*hors classe*"
-			exp_title5 = re.compile(expression_title5)
-			title_data5 = re.search(exp_title5, str(title))
+			expression_title = ".*hors classe*"
+			exp_title = re.compile(expression_title)
+			title_data5 = re.search(exp_title, str(title))
 			if title_data5 is not None:
 				self.classe = "hors classe"
 			else:
@@ -111,11 +112,12 @@ class ArreteITA(Arrete):
 			total_bap = 0
 			bap_name = bap_table[0][0]
 			text = bap_table[0][1]
-			postes_table = re.findall(r"[Concours|CONCOURS] [n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+", text)
+			pat = re.compile(r"[n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+")
+			postes_table = re.findall(pat, text)
 			for postes in postes_table:
-				nbr_postes = re.match(r"[Concours|CONCOURS] [n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)", postes)
+				pat2 = re.compile(r"[n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)")
+				nbr_postes = re.match(pat2, postes)
 				total_bap = total_bap+int(nbr_postes.group(1))
-
 			self.postes[bap_name] = total_bap
 			self.postes["Total"] = self.postes["Total"] + total_bap
 
@@ -318,12 +320,24 @@ FILE_LIST_ARRETES_IR = "arretes-cnrs-ir.txt"
 FILE_LIST_ARRETES_T = "arretes-cnrs-t.txt"
 FILE_LIST_ARRETES_AI = "arretes-cnrs-ai.txt"
 
-def liste_arretes_tries(file, mode):
+def liste_arretes_tries(mode):
 	'''
 	Cette fonction crée la liste des arretes en fonction du fichier donné
 	et les trie par année
 	'''
 	# Liste des urls des arrêtés de création de poste de chargé de recherche au CNRS
+
+	if mode == "ie":
+		file = FILE_LIST_ARRETES_IE
+	elif mode == "ir":
+		file = FILE_LIST_ARRETES_IR
+	elif mode == "ai":
+		file = FILE_LIST_ARRETES_AI
+	elif mode == "t":
+		file = FILE_LIST_ARRETES_T
+	else:
+		file = FILE_LIST_ARRETES_CR
+
 	urls_arretes = []
 	with open(file, "r") as arretes_file:
 		urls_arretes = arretes_file.read().splitlines()
@@ -347,7 +361,7 @@ def build_cr_jsonfile():
 	Cette fonction crée les fichiers json pour les catégories de postes
 	de chargés de recherche
 	'''
-	arretes = liste_arretes_tries(FILE_LIST_ARRETES_CR, "cr")
+	arretes = liste_arretes_tries("cr")
 	json_tab = []
 	json_tab_classe1 = []
 	json_tab_classe2 = []
@@ -387,17 +401,7 @@ def build_ita_jsonfile(mode):
 	Cette fonction crée les fichiers json pour les catégories de postes ita
 	(ingénieurs, techniciens, assistants)
 	'''
-	total_file_name = "postes-"+mode.upper()+"-CNRS.json"
-	ext_file_name = "postes-"+mode.upper()+"-CNRS-Externe.json"
-	epr_file_name = "postes-"+mode.upper()+"-CNRS-EPR.json"
-	if mode == "ie":
-		arretes = liste_arretes_tries(FILE_LIST_ARRETES_IE, mode)
-	elif mode == "ir":
-		arretes = liste_arretes_tries(FILE_LIST_ARRETES_IR, mode)
-	elif mode == "ai":
-		arretes = liste_arretes_tries(FILE_LIST_ARRETES_AI, mode)
-	else:
-		arretes = liste_arretes_tries(FILE_LIST_ARRETES_T, mode)
+	arretes = liste_arretes_tries(mode)
 	json_tab = []
 	json_tab_ext = []
 	json_tab_epr = []
@@ -434,11 +438,11 @@ def build_ita_jsonfile(mode):
 		json_tab_ext.append(json_bap_ext)
 		json_tab_epr.append(json_bap_epr)
 		json_tab.append(json_bap)
-	with open(total_file_name, "w") as out_file:
+	with open("postes-"+mode.upper()+"-CNRS.json", "w") as out_file:
 		json.dump(json_tab, out_file, indent=4)
-	with open(ext_file_name, "w") as out_file:
+	with open("postes-"+mode.upper()+"-CNRS-Externe.json", "w") as out_file:
 		json.dump(json_tab_ext, out_file, indent=4)
-	with open(epr_file_name, "w") as out_file:
+	with open("postes-"+mode.upper()+"-CNRS-EPR.json", "w") as out_file:
 		json.dump(json_tab_epr, out_file, indent=4)
 
 def main(argv):
