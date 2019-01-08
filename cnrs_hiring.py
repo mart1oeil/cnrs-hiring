@@ -67,7 +67,6 @@ class ArreteITA(Arrete):
 		title_data3 = re.search(exp_title, str(title))
 		if title_data3 is not None:
 			self.epr = True
-			print("EPR "+str(self.year)+" CLASSE "+str(self.classe)+" url: "+self.url)
 
 		#récupération de la classe
 		expression_title = ".*ingénieurs d'études de (?P<classe>[0-9]+).*"
