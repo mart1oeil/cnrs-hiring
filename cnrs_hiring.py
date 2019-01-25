@@ -41,6 +41,7 @@ class ArreteITA(Arrete):
 		Arrete.__init__(self, url)
 		self.postes = ({"A":0, "B":0, "C":0, "D":0, "E":0, "F":0, "G":0, "H":0, "I":0, "J":0, "Total":0})
 		self.epr = False
+
 	def postes_cnrs(self):
 
 		'''
@@ -444,6 +445,24 @@ def build_ita_jsonfile(mode):
 	with open("postes-"+mode.upper()+"-CNRS-EPR.json", "w") as out_file:
 		json.dump(json_tab_epr, out_file, indent=4)
 
+def use():
+	'''
+	impression du message d'utilisation
+	'''
+
+	print('''Pas de catégorie de postes de ce type.
+
+			Utilisation : python cnrs_hiring.py categorie
+
+			Catégories de postes disponibles :
+			t	techniciens
+			ai	assistants ingénieurs
+			ie	ingénieurs d'études
+			ir	ingénieurs de recherche
+			cr	chargés de recherche
+
+			''')
+
 def main(argv):
 	'''
 	La fonction principale de ce module va récupérer la
@@ -459,7 +478,10 @@ def main(argv):
 	elif mode == "ie" or mode == "t" or mode == "ir" or mode == "ai":
 		build_ita_jsonfile(mode)
 	else:
-		print("Pas de catégorie de postes de ce type")
+		use()
 
 if __name__ == "__main__":
-	main(sys.argv[1:])
+	try:
+		main(sys.argv[1:])
+	except (RuntimeError, TypeError, NameError, IndexError):
+		use()
