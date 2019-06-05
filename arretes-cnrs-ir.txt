@@ -24,3 +24,5 @@ https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000018891234&fast
 https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000018891240&fastPos=115&fastReqId=52503523&categorieLien=id&oldAction=rechTexte
 https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000822858&fastPos=120&fastReqId=52503523&categorieLien=id&oldAction=rechTexte
 https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000822857&fastPos=121&fastReqId=52503523&categorieLien=id&oldAction=rechTexte
+https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000038544729&dateTexte=&categorieLien=id
+https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000038544727&dateTexte=&categorieLien=id
