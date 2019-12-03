@@ -182,9 +182,9 @@ class ArreteCR(Arrete):
 				comm = re.search(exp_comm, commission)
 				if comm is not None:
 					#On compte le nombre de postes attribués à la commission
-					postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[0-9]+", commission)
+					postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*[0-9]+", commission)
 					for postes in postes_table:
-						nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*([0-9]+)", postes)
+						nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*([0-9]+)", postes)
 						total_comm = total_comm+int(nbr_postes.group(1))
 					self.postes["Total"] = self.postes["Total"] + total_comm
 					# On attribue à l'indice du tableau correspondant
@@ -204,13 +204,13 @@ class ArreteCR(Arrete):
 		exp = re.compile(exp)
 		section_table = re.findall(exp, section.replace('\n', ''))
 		total_section = 0
-
+		
 		if section_table:
 			text = self.fill_commissions(section_table)
 			#On compte le nombre de postes attribués à la Section
-			postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[0-9]+", text)
+			postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*[0-9]+", text)
 			for postes in postes_table:
-				nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*([0-9]+)", postes)
+				nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*([0-9]+)", postes)
 				total_section = total_section+int(nbr_postes.group(1))
 			num_section = int(section_table[0][0])
 			# on attribue les postes à la section en cours
