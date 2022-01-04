@@ -410,11 +410,11 @@ BAP_DICO = ({"A":"Sciences du vivant, de la terre et de l'environnement",
              "J":"Gestion et pilotage"})
 
 
-FILE_LIST_ARRETES_CR = "arretes-cnrs-cr.txt"
-FILE_LIST_ARRETES_IE = "arretes-cnrs-ie.txt"
-FILE_LIST_ARRETES_IR = "arretes-cnrs-ir.txt"
-FILE_LIST_ARRETES_T = "arretes-cnrs-t.txt"
-FILE_LIST_ARRETES_AI = "arretes-cnrs-ai.txt"
+FILE_LIST_ARRETES_CR = "./arretes/arretes-cnrs-cr.txt"
+FILE_LIST_ARRETES_IE = "./arretes/arretes-cnrs-ie.txt"
+FILE_LIST_ARRETES_IR = "./arretes/arretes-cnrs-ir.txt"
+FILE_LIST_ARRETES_T = "./arretes/arretes-cnrs-t.txt"
+FILE_LIST_ARRETES_AI = "./arretes/arretes-cnrs-ai.txt"
 
 def liste_arretes_tries(mode):
 	'''
@@ -488,11 +488,11 @@ def build_cr_jsonfile():
 		json_tab.append(json_sec)
 		json_tab_classe1.append(json_sec_classe1)
 		json_tab_classe2.append(json_sec_classe2)
-	with open("postes-CR-CNRS.json", "w") as out_file:
+	with open("./json/postes-CR-CNRS.json", "w") as out_file:
 		json.dump(json_tab, out_file, indent=4)
-	with open("postes-CR-CNRS-Classe1.json", "w")as out_file:
+	with open("./json/postes-CR-CNRS-Classe1.json", "w")as out_file:
 		json.dump(json_tab_classe1, out_file, indent=4)
-	with open("postes-CR-CNRS-Classe2.json", "w")as out_file:
+	with open("./json/postes-CR-CNRS-Classe2.json", "w")as out_file:
 		json.dump(json_tab_classe2, out_file, indent=4)
 	postes_par_an_cr()
 	
@@ -501,7 +501,7 @@ def postes_par_an_cr():
 	'''
 	This method count the number of CR positions by year
 	'''
-	with open("postes-CR-CNRS.json", "r") as out_file:
+	with open("./json/postes-CR-CNRS.json", "r") as out_file:
 		postes_par_section = json.load(out_file)
 		postes_par_an = {}
 		for section in postes_par_section:
@@ -558,11 +558,11 @@ def build_ita_jsonfile(mode):
 		json_tab_ext.append(json_bap_ext)
 		json_tab_epr.append(json_bap_epr)
 		json_tab.append(json_bap)
-	with open("postes-"+mode.upper()+"-CNRS.json", "w") as out_file:
+	with open("./json/postes-"+mode.upper()+"-CNRS.json", "w") as out_file:
 		json.dump(json_tab, out_file, indent=4)
-	with open("postes-"+mode.upper()+"-CNRS-Externe.json", "w") as out_file:
+	with open("./json/postes-"+mode.upper()+"-CNRS-Externe.json", "w") as out_file:
 		json.dump(json_tab_ext, out_file, indent=4)
-	with open("postes-"+mode.upper()+"-CNRS-EPR.json", "w") as out_file:
+	with open("./json/postes-"+mode.upper()+"-CNRS-EPR.json", "w") as out_file:
 		json.dump(json_tab_epr, out_file, indent=4)
 
 def use():

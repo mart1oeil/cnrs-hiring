@@ -1,0 +1,222 @@
+[
+    {
+        "key": "BAP A",
+        "name": "Sciences du vivant, de la terre et de l'environnement",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP B",
+        "name": "Sciences chimiques et science des mat\u00e9riaux",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP C",
+        "name": "Sciences de l'ing\u00e9nieur et instrumentation scientifique",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP D",
+        "name": "Sciences humaines et sociales",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP E",
+        "name": "Informatique, statistiques et calcul scientifique",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP F",
+        "name": "Culture, communication, production et diffusion des savoirs)",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP G",
+        "name": "Patrimoine immobilier, logistique, restauration et pr\u00e9vention",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP H",
+        "name": "Gestion de la recherche",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP I",
+        "name": "",
+        "values": [
+            [
+                2014,
+                0
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                0
+            ]
+        ]
+    },
+    {
+        "key": "BAP J",
+        "name": "Gestion et pilotage",
+        "values": [
+            [
+                2014,
+                2
+            ],
+            [
+                2015,
+                0
+            ],
+            [
+                2016,
+                0
+            ],
+            [
+                2017,
+                2
+            ]
+        ]
+    }
+]
