@@ -1,64 +1,145 @@
 # coding: utf-8
 
 '''
-Ce module permet de connaitre l'évolution de la
-création de poste de chercheurs au CNRS.
+This module scrap Legifrance Pages to 
+create json files with the evolution of the creation of CNRS positions, section by section
 '''
-
+import time
 import json
 import sys
 from operator import attrgetter
 import re
 import requests
 from bs4 import BeautifulSoup
+import urllib
+import random
+from requests_oauthlib import OAuth2Session
+import configparser
+
+# urls used for the Legifrance API
+API_HOST = "https://api.aife.economie.gouv.fr/dila/legifrance-beta/lf-engine-app"
+TOKEN_URL = 'https://oauth.aife.economie.gouv.fr/api/oauth/token'
+
+#Time of refresh for the Legifrance client
+HOUR = 3600
+
+#last refreshed client time
+clitime = time.time()
+
+config = configparser.ConfigParser()
+
+# config.ini contains client_id & client_secret from the Legifrance API
+config.read('config.ini')
+CLIENT_ID = config['API_LEGIFRANCE']['client_id']
+CLIENT_SECRET = config['API_LEGIFRANCE']['client_secret']
+
+def _get_client_legifrance():
+	'''
+	Create a client for the legifrance API
+	It neads a config.ini file under the following format :
+
+	[API_LEGIFRANCE]
+	client_id = XXXXXXX
+	client_secret = YYYYYYYYY
+
+	Return a tuple with the client and the token
+	'''
+
+	
+	res = requests.post(
+	TOKEN_URL,
+	data={
+		"grant_type": "client_credentials",
+		"client_id": CLIENT_ID,
+		"client_secret": CLIENT_SECRET,
+		"scope": "openid"
+	}
+	)
+	token = res.json()
+	client = OAuth2Session(CLIENT_ID, token=token)
+	return res, token
+
+
+
+
+def _update_client(client) :
+	'''
+	This method refresh the Legifrance client if needed
+	return a client
+	'''
+	global clitime
+	elapsed = time.time() - clitime
+	if elapsed >= HOUR:
+		clitime = time.time()
+		client = _get_client_legifrance()
+		
+	return client
+
+# Client Creation. We just need one
+CLIENT = _get_client_legifrance()
+
+
 
 class Arrete(object):
 	'''
-	Un arrete est une page web de legifrance créée chaque année
-	qui contient le nombre de création de postes pour chaque section.
+	An "arrete" is a Legifrance site entry created every year
+	It contains the positions created every year in the CNRS.
+
+
 	'''
-	def __init__(self, url):
+	def __init__(self, legId):
 		self.year = 1970
 		self.classe = ""
-		self.url = url
+		self.legId = legId
+		self.client_token = _update_client(CLIENT)
+
 
 	def __str__(self):
 		return  "Arrêté postes CNRS Année %s, classe %s" % (self.year, self.classe)
 
+
+		
+
+
 	def postes_cnrs(self):
 		'''
-		Cette méthode permet de récupérer les nombres de postes dans un arrêté et
-		à les attribuer à chaque section / BAP dans le tableau des postes.
+		This method allow to scrap the positions number in an arrêté and put it in a section /BAP table
 		'''
 		pass
 
 class ArreteITA(Arrete):
 	'''
-	Un ArreteITA est une page web de legifrance créée chaque année
-	qui contient le nombre de création de postes d'ingénieurs d'étude CNRS pour chaque section.
+	An ArreteITA is a Legifrance webpage created each year which contains the number engineers, technicians, administratives CNRS positions
 	'''
-	def __init__(self, url):
-		Arrete.__init__(self, url)
+	def __init__(self, legId):
+		Arrete.__init__(self, legId)
 		self.postes = ({"A":0, "B":0, "C":0, "D":0, "E":0, "F":0, "G":0, "H":0, "I":0, "J":0, "Total":0})
 		self.epr = False
 
 	def postes_cnrs(self):
 
 		'''
-		Cette méthode permet de récupérer les nombres de postes dans un arrêté et
-		à les attribuer à chaque section dans le tableau des postes.
+		This method scraps the arrêté webpage and put the numbers into the postes table
 		'''
-		#ouverture de l'arrêté sur legifrance
-		req = requests.get(self.url).text
-		soup = BeautifulSoup(req, 'lxml')
-		body = soup.find('body')
-		title = soup.find('title')
+		cli = _update_client(self.client_token[0])
+		article_id = self.legId
+		payload = {'textCid': article_id}
+		token = self.client_token[1]
+
+		api_call_headers = {'Authorization': 'Bearer ' + token["access_token"]}
+		api_call_response= requests.post(API_HOST+"/consult/jorf", headers=api_call_headers, json=payload)
+		jorf = api_call_response.json()
+		title = jorf["title"]
+		body = jorf["articles"][0]["content"]
+		if len(jorf["sections"]) > 0 :
+			for i in range(0,len(jorf["sections"])):
+				body = body + jorf["sections"][i]["articles"][0]["content"]
+		
 		# récupération de la date
 		# récupération de la date
-		expression_title = r".*au titre de l'année (?P<datePubli>[0-9]+) .*"
+		expression_title = r".*année (?P<datePubli>[0-9]+).*"
 		exp_title = re.compile(expression_title)
 		title_data = re.search(exp_title, str(title))
-
 		if title_data is not None:
 			self.year = int(title_data.group('datePubli'))
 
@@ -90,8 +171,7 @@ class ArreteITA(Arrete):
 				self.classe = "hors classe"
 			else:
 				self.classe = 'classe normale'
-
-		baps = re.split(r"[<p>|<br>]BAP", str(body), flags=re.S)
+		baps = re.split(r"[<p>|<br>|<br/>|<br/>\n]BAP|B.A.P. :", str(body), flags=re.S)
 		for bap in baps:
 			self.fill_bap(bap)
 
@@ -100,8 +180,7 @@ class ArreteITA(Arrete):
 
 	def fill_bap(self, bap):
 		'''
-		cette méthode remplie le tableau pour la section donnée
-		il retourne le total de postes calculé.
+		This method scrap the number of positions for each BAP and put them into a the postes Table
 		'''
 		#Pour chaque bap, on récupère sa lettre et on vire les retours à la ligne
 		exp = r"^[ ]*([A-J]+)(.*)"
@@ -112,10 +191,14 @@ class ArreteITA(Arrete):
 			total_bap = 0
 			bap_name = bap_table[0][0]
 			text = bap_table[0][1]
-			pat = re.compile(r"[n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+")
+			#print(bap_table)
+			pat = re.compile(r"[n|N]°[ ]*[0-9]+[ :]*[</p>]*[<p>]*[<p align=\'left\'>]*[<p align=\"left\">]*[<br/>]*[ ]*[0-9]+")
+
+			# Concours n° 1 :<br>
+ 			# 2 post
 			postes_table = re.findall(pat, text)
 			for postes in postes_table:
-				pat2 = re.compile(r"[n|N]°[ ]*[0-9]+</p>[<p>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)")
+				pat2 = re.compile(r"[n|N]°[ ]*[0-9]+[ :<br/>]*[</p>]*[<p>]*[<p align=\'left\'>]*[<p align=\"left\">]*[<br/>]*[ ]*([0-9]+)")
 				nbr_postes = re.match(pat2, postes)
 				total_bap = total_bap+int(nbr_postes.group(1))
 			self.postes[bap_name] = total_bap
@@ -123,11 +206,12 @@ class ArreteITA(Arrete):
 
 class ArreteCR(Arrete):
 	'''
-	Un arreteCR est une page web de legifrance créée chaque année
-	qui contient le nombre de création de postes de Chargés de recherche CNRS pour chaque section.
+	A arreteCR is a 
+	An ArreteCR is a Legifrance webpage created each year which contains the number "Chargés de recherche" CNRS positions.
+	It has a table with positions by sections
 	'''
-	def __init__(self, url):
-		Arrete.__init__(self, url)
+	def __init__(self, legId):
+		Arrete.__init__(self, legId)
 		self.postes = ({1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0,
                   12:0, 13:0, 14:0, 15:0, 16:0, 17:0, 18:0, 19:0, 20:0, 21:0, 22:0, 23:0,
                   24:0, 25:0, 26:0, 27:0, 28:0, 29:0, 30:0, 31:0, 32:0, 33:0, 34:0, 35:0,
@@ -135,12 +219,9 @@ class ArreteCR(Arrete):
 
 	def attrib_postes(self, num_section, total_section):
 		'''
-		On attribue à l'indice du tableau correspondant
-		au numéro de section le nombre de postes attribués
-		En prenant compte du tableau des corresps
-		de sections avant 2013
+		The CNRS sections have change (fusions, different numbers...) on 2013. This method do the connections
 		'''
-		# correspondance sections avant 2013 et après 2013
+		# connections for sections before 2013 and after 2013
 		corresps = ({1:41, 3:1, 6:3, 7:[6, 7], 20:30, 21:20, 22:21, 23:22, 24:[24, 25, 27],
                25:24, 26:22, 27:26, 28:23, 30:28})
 
@@ -167,7 +248,7 @@ class ArreteCR(Arrete):
 
 	def fill_commissions(self, section_table):
 		'''
-		Traite l'existance des commissions interdisciplinaires
+		interdisciplinary sections are aggregated 
 		'''
 		text = section_table[0][1]
 		commissions = (re.split("Commission interdisciplinaire",
@@ -177,7 +258,7 @@ class ArreteCR(Arrete):
 			for commission in commissions[1:]:
 				total_comm = 0
 				#recupération du numéro de commission
-				expression = r".*n° +(?P<numComm>[0-9]+).*"
+				expression = r"[n°|] +(?P<numComm>[0-9]+).*"
 				exp_comm = re.compile(expression)
 				comm = re.search(exp_comm, commission)
 				if comm is not None:
@@ -186,18 +267,20 @@ class ArreteCR(Arrete):
 					for postes in postes_table:
 						nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*([0-9]+)", postes)
 						total_comm = total_comm+int(nbr_postes.group(1))
+
+					postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*[0-9]+", commission)
 					self.postes["Total"] = self.postes["Total"] + total_comm
 					# On attribue à l'indice du tableau correspondant
 					# au numéro de commission le nombre de postes attribués
 					self.postes["Interdisciplinaires"] = (self.postes["Interdisciplinaires"]
                                            +total_comm)
+
 			text = commissions[0]
 		return text
 
 	def fill_section(self, section):
 		'''
-		cette méthode remplie le tableau pour la section donnée
-		il retourne le total de postes calculé.
+		This method fills the section table
 		'''
 		#Pour chaque section, on récupère son numéro et on vire les retours à la ligne
 		exp = r"^([0-9]+)(.*)"
@@ -208,11 +291,12 @@ class ArreteCR(Arrete):
 		if section_table:
 			text = self.fill_commissions(section_table)
 			#On compte le nombre de postes attribués à la Section
-			postes_table = re.findall(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*[0-9]+", text)
-			for postes in postes_table:
-				nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[ .-]*[:.-]*[ .-]*([0-9]+)", postes)
-				total_section = total_section+int(nbr_postes.group(1))
 			num_section = int(section_table[0][0])
+			postes_table = re.findall(r"N° *[0-9]+/[0-9]+[N|N°]*[ .-]*[:.-]*[ .-]*[0-9]+", text)
+			for postes in postes_table:
+				nbr_postes = re.match(r"N° *[0-9]+/[0-9]+[N|N°]*[ .-]*[:.-]*[ .-]*([0-9]+)", postes)
+				total_section = total_section+int(nbr_postes.group(1))
+			
 			# on attribue les postes à la section en cours
 			self.attrib_postes(num_section, total_section)
 		self.postes["Total"] = self.postes["Total"] + total_section
@@ -224,10 +308,22 @@ class ArreteCR(Arrete):
 		à les attribuer à chaque section dans le tableau des postes.
 		'''
 		#ouverture de l'arrêté sur legifrance
-		req = requests.get(self.url).text
-		soup = BeautifulSoup(req, 'lxml')
-		body = soup.find('body')
-		title = soup.find('title')
+		# req = requests.get(self.legId).text
+		# soup = BeautifulSoup(req, 'lxml')
+		# body = soup.find('body')
+		# title = soup.find('title')
+		
+		cli = _update_client(self.client_token[0])
+		article_id = self.legId
+		payload = {'textCid': article_id}
+		token = self.client_token[1]
+		api_call_headers = {'Authorization': 'Bearer ' + token["access_token"]}
+
+		api_call_response= requests.post(API_HOST+"/consult/jorf", headers=api_call_headers, json=payload)
+		jorf = api_call_response.json()
+		title = jorf["title"]
+		body = jorf["articles"][0]["content"]		
+		
 		# récupération de la date
 		expression_title = r".*autorisant au titre de l'année (?P<datePubli>[0-9]+) .*"
 		exp_title = re.compile(expression_title)
@@ -322,10 +418,12 @@ FILE_LIST_ARRETES_AI = "arretes-cnrs-ai.txt"
 
 def liste_arretes_tries(mode):
 	'''
-	Cette fonction crée la liste des arretes en fonction du fichier donné
-	et les trie par année
+	This function create an arretes list with ids given in the File_list file for the category choosen
+	and sort by year
+
+	It returns a table of arretes
 	'''
-	# Liste des urls des arrêtés de création de poste de chargé de recherche au CNRS
+	# Liste des legIds des arrêtés de création de poste de chargé de recherche au CNRS
 
 	if mode == "ie":
 		file = FILE_LIST_ARRETES_IE
@@ -338,28 +436,27 @@ def liste_arretes_tries(mode):
 	else:
 		file = FILE_LIST_ARRETES_CR
 
-	urls_arretes = []
+	legIds_arretes = []
 	with open(file, "r") as arretes_file:
-		urls_arretes = arretes_file.read().splitlines()
+		legIds_arretes = arretes_file.read().splitlines()
 	arretes = []
-	#Pour chaque arrete on récupère les infos et on stocke
-	for url_arret in urls_arretes:
+	# for each arrete we create an Arrete object with info found in the Légifrance page
+	for legId_arret in legIds_arretes:
 
 		if mode == "cr":
-			arret = ArreteCR(url_arret)
+			arret = ArreteCR(legId_arret)
 		if mode == "ie" or mode == "t" or mode == "ir" or mode == "ai":
-			arret = ArreteITA(url_arret)
+			arret = ArreteITA(legId_arret)
 		arret.postes_cnrs()
 		arretes.append(arret)
-		#On trie par année
+		
 		arretes = sorted(arretes, key=attrgetter('year'))
 
 	return arretes
 
 def build_cr_jsonfile():
 	'''
-	Cette fonction crée les fichiers json pour les catégories de postes
-	de chargés de recherche
+	This method create json files for positions categories of "chargés de recherche"
 	'''
 	arretes = liste_arretes_tries("cr")
 	json_tab = []
@@ -379,8 +476,11 @@ def build_cr_jsonfile():
 				json_sec["values"].append([arret.year, arret.postes[num_sec]])
 				json_sec_classe1["values"].append([arret.year, arret.postes[num_sec]])
 			elif arret.classe == "2":
-				classe1 = json_sec["values"][-1][-1]
-				classe2 = classe1+arret.postes[num_sec]
+				try:
+					classe1 = json_sec["values"][-1][-1]
+					classe2 = classe1+arret.postes[num_sec]
+				except (IndexError):
+					classe2 = arret.postes[num_sec]
 				json_sec["values"][-1] = [arret.year, classe2]
 				json_sec_classe2["values"].append([arret.year, arret.postes[num_sec]])
 			elif arret.classe == "classe normale":
@@ -394,12 +494,32 @@ def build_cr_jsonfile():
 		json.dump(json_tab_classe1, out_file, indent=4)
 	with open("postes-CR-CNRS-Classe2.json", "w")as out_file:
 		json.dump(json_tab_classe2, out_file, indent=4)
+	postes_par_an_cr()
+	
+
+def postes_par_an_cr():
+	'''
+	This method count the number of CR positions by year
+	'''
+	with open("postes-CR-CNRS.json", "r") as out_file:
+		postes_par_section = json.load(out_file)
+		postes_par_an = {}
+		for section in postes_par_section:
+			for valeur in section["values"]:
+				an = str(valeur[0])
+				if not postes_par_an.get(an):
+					postes_par_an[an] = valeur[1]
+				else :
+					postes_par_an[an] = postes_par_an[an]  + valeur[1]
+		print(postes_par_an)
+
+
+
 
 
 def build_ita_jsonfile(mode):
 	'''
-	Cette fonction crée les fichiers json pour les catégories de postes ita
-	(ingénieurs, techniciens, assistants)
+	This method create json files for positions categories of engineers, technicians, administratives positions
 	'''
 	arretes = liste_arretes_tries(mode)
 	json_tab = []
@@ -447,7 +567,7 @@ def build_ita_jsonfile(mode):
 
 def use():
 	'''
-	impression du message d'utilisation
+	usage information
 	'''
 
 	print('''Pas de catégorie de postes de ce type.
@@ -465,11 +585,9 @@ def use():
 
 def main(argv):
 	'''
-	La fonction principale de ce module va récupérer la
-	liste des arretes déclarants les créations de postes
-	puis récuperer la liste des postes pour chaque arretes
-	et enfin créer les json stockant la liste des postes par
-	section et par année.
+	The main function of this module take the position creation arrêtés list
+	it  finds the number of position for each category
+	and create json files with positions list by section and by year
 	'''
 
 	mode = argv[0]
@@ -477,6 +595,8 @@ def main(argv):
 		build_cr_jsonfile()
 	elif mode == "ie" or mode == "t" or mode == "ir" or mode == "ai":
 		build_ita_jsonfile(mode)
+	elif mode == "compte_cr":
+		postes_par_an_cr()
 	else:
 		use()
 
@@ -485,3 +605,5 @@ if __name__ == "__main__":
 		main(sys.argv[1:])
 	except (RuntimeError, TypeError, NameError, IndexError):
 		use()
+	except (urllib.error.HTTPError):
+		print("problème dans une url")
